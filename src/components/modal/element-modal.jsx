@@ -9,6 +9,7 @@ const style = /*css */ `
       --transition: 1s ease all;
       --transform-from: scale(.9);
       --transform-to: scale(1);
+      visibility: visible;
     }
     .frame{
       opacity: 0;
@@ -20,9 +21,11 @@ const style = /*css */ `
     :host([full-size]) .frame{
       width: 100%;
       height: 100%;
-      position: relative;
+      position: fixed;
       display: block;
       transition: .5s ease all;
+      top: 0px;
+      left: 0px;
       background: var(--background, rgba(0,0,0,.15));
     }
     .container{
@@ -52,13 +55,13 @@ const style = /*css */ `
       position: absolute;
       top: .5rem;
       right: .5rem;
-      background: var(--button-background, #fff);
+      background: var(--button-closed-background, #fff);
       color: var(--button-color, unset);
       border-radius: 25%;
-      box-shadow: var(--button-shadow, 0px 0px 12px rgba(0,0,0,.1));
+      box-shadow: var(--button-closed-shadow, 0px 0px 12px rgba(0,0,0,.1));
     }
     .button svg rect {
-      fill: currentColor;
+      fill: var(--button-color, black);
     }
 `;
 
@@ -70,6 +73,8 @@ function modal({
   transformTo,
   transformFrom,
   fullSizeClosed,
+  buttonClosedColor,
+  buttonClosedBackground,
 }) {
   const [, setShow] = useProp("show");
 
@@ -120,6 +125,10 @@ function modal({
         {transformFrom && `:host{--transform-from:${transformFrom}}`}
         {transformTo && `:host{--transform-from:${transformTo}}`}
         {transition && `:host{--transition:${transition}}`}
+        {buttonClosedColor &&
+          `:host{--button-closed-color:${buttonClosedColor}}`}
+        {buttonClosedBackground &&
+          `:host{--button-closed-background:${buttonClosedBackground}}`}
       </style>
       <span class="frame" onclick={fullSizeClosed && closed}>
         <slot name="background"></slot>
@@ -171,6 +180,8 @@ modal.props = {
   transition: String,
   transformTo: String,
   transformFrom: String,
+  buttonClosedColor: String,
+  buttonClosedBackground: String,
 };
 
 export const Modal = c(modal);
