@@ -5,15 +5,19 @@
   "publishConfig": {
     "access": "public"
   },
+  "exports": {
+    "./element-modal": "./"
+  },
   "scripts": {
     "start": "devserver dev src --jsxImportSource atomico",
-    "build": "devserver build src/**/*.html docs --jsxImportSource atomico"
+    "build": "devserver build src/components/*/*.js dest --jsxImportSource atomico --external atomico,atomico/jsx-runtime,@atomico/hooks/use-responsive-state,@atomico/hooks/use-resize-observer --minify --minifyCssLiteral"
   },
   "dependencies": {
-    "atomico": "latest",
-    "@atomico/hooks": "latest"
+    "@atomico/hooks": "latest",
+    "atomico": "latest"
   },
   "devDependencies": {
+    "@devserver/build": "latest",
     "@devserver/cli": "latest"
   }
 }
