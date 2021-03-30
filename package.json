@@ -1,7 +1,7 @@
 {
   "name": "@uppercod/components",
   "description": "Generic and utility webcomponents created with Atomico",
-  "version": "0.0.0-beta",
+  "version": "0.0.1-beta",
   "publishConfig": {
     "access": "public"
   },
