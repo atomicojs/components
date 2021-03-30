@@ -1,5 +1,5 @@
 {
-  "name": "@atomico/components",
+  "name": "@uppercod/components",
   "description": "Generic and utility webcomponents created with Atomico",
   "version": "0.0.0-beta",
   "publishConfig": {

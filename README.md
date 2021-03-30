@@ -1,1 +1,1 @@
-# @atomico/components(work in progress)
+# @uppercod/components(work in progress)
