@@ -59,6 +59,7 @@ const style = /*css */ `
       color: var(--button-color, unset);
       border-radius: 25%;
       box-shadow: var(--button-closed-shadow, 0px 0px 12px rgba(0,0,0,.1));
+      z-index: 10;
     }
     .button svg rect {
       fill: var(--button-color, black);
