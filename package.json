@@ -1,0 +1,19 @@
+{
+  "name": "@atomico/components",
+  "description": "Generic and utility webcomponents created with Atomico",
+  "version": "0.0.0-beta",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "start": "devserver dev src --jsxImportSource atomico",
+    "build": "devserver build src/**/*.html docs --jsxImportSource atomico"
+  },
+  "dependencies": {
+    "atomico": "latest",
+    "@atomico/hooks": "latest"
+  },
+  "devDependencies": {
+    "@devserver/cli": "latest"
+  }
+}
