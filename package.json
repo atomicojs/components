@@ -6,8 +6,7 @@
     "access": "public"
   },
   "exports": {
-    "./modal": "./dest/modal.js",
-    "./element-modal": "./dest/element-modal.js"
+    "./modal": "./dest/modal.js"
   },
   "scripts": {
     "start": "devserver dev src --jsxImportSource atomico",
