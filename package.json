@@ -1,7 +1,7 @@
 {
   "name": "@uppercod/components",
   "description": "Generic and utility webcomponents created with Atomico",
-  "version": "0.0.7-beta",
+  "version": "0.0.8-beta",
   "publishConfig": {
     "access": "public"
   },
@@ -9,13 +9,13 @@
     "./modal": "./dest/modal.js"
   },
   "scripts": {
-    "start": "devserver dev src --jsxImportSource atomico",
+    "start": "devserver dev src --jsxImportSource atomico --cdn",
     "build": "devserver build src/*/*.{js,jsx} dest --jsxImportSource atomico --external atomico,@atomico/* --minify --minifyCssLiteral",
     "prepare": "npm run build"
   },
   "dependencies": {
     "@atomico/hooks": "latest",
-    "atomico": "^1.14.1"
+    "atomico": "latest"
   },
   "devDependencies": {
     "@devserver/build": "latest",
