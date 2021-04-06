@@ -1,7 +1,7 @@
 {
   "name": "@uppercod/components",
   "description": "Generic and utility webcomponents created with Atomico",
-  "version": "0.0.4-beta",
+  "version": "0.0.5-beta",
   "publishConfig": {
     "access": "public"
   },
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@atomico/hooks": "latest",
-    "atomico": "latest"
+    "atomico": "^1.14.1"
   },
   "devDependencies": {
     "@devserver/build": "latest",

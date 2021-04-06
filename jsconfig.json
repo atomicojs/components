@@ -6,5 +6,7 @@
         "checkJs": true,
         "jsx": "react-jsx",
         "jsxImportSource": "atomico",
-    }
+        "lib": ["esnext","dom"]
+    },
+    "include": ["./src"]
 }

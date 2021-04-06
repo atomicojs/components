@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UCompatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@atomico/components/router</title>
+    <script type="module">
+      import { RouterRedirect, RouterSwitch, RouterCase } from "./router.js";
+      customElements.define("router-redirect", RouterRedirect);
+      customElements.define("router-switch", RouterSwitch);
+      customElements.define("router-case", RouterCase);
+    </script>
+  </head>
+  <body>
+    <router-redirect path="/components/router">
+      <a href="/">Home</a>
+      <a href="/config">Config</a>
+      <router-switch>
+        <router-case path="/" for="home"></router-case>
+        <!--
+        <router-case path="/config" for="config"></router-case>
+        -->
+        <section name="home">
+          <h1>Home!</h1>
+        </section>
+        <section name="config">
+          <h1>Config!</h1>
+        </section>
+      </router-switch>
+    </router-redirect>
+  </body>
+</html>

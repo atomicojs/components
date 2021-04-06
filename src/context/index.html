@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UCompatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@atomico/components/router</title>
+    <script type="module">
+      import { Context } from "./context.jsx";
+      customElements.define("con-text", Context);
+
+      class Shadow extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({ mode: "open" });
+          this.shadowRoot.innerHTML = `
+            <con-text name="data" composed>Roma</con-text>
+          `;
+
+          this.shadowRoot
+            .querySelector("con-text")
+            .addEventListener("ChangeContext", ({ target }) => {
+              console.log(target.value);
+            });
+        }
+      }
+
+      customElements.define("sha-dow", Shadow);
+    </script>
+  </head>
+  <body>
+    <con-text name="root" value='{"data":{"id":100}}'>
+      <con-text id="user" name="user" destruct>
+        <con-text id="user" name="data" destruct value='{"normas":100}'
+          >e</con-text
+        >
+      </con-text>
+      <con-text name="config" destruct></con-text>
+      <sha-dow></sha-dow>
+      <input type="text" oninput="user.value = {value:event.target.value}" />
+    </con-text>
+  </body>
+</html>
