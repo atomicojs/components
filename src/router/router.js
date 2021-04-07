@@ -1,4 +1,4 @@
-export { redirect } from "@atomico/hooks/use-router";
-export { RouterCase } from "./router/router-case.jsx";
-export { RouterSwitch } from "./router/router-switch.jsx";
-export { RouterRedirect } from "./router/router-redirect.jsx";
+export { redirect, getPath } from "@atomico/hooks/use-router";
+export { RouterCase } from "./components/router-case.jsx";
+export { RouterSwitch } from "./components/router-switch.jsx";
+export { RouterRedirect } from "./components/router-redirect.jsx";

@@ -1,7 +1,7 @@
-import { c, useEvent, useState, useHost, useEffect, useUpdate } from "atomico";
+import { c } from "atomico";
 
 function routerCase() {
-  return <host></host>;
+  return <host shadowDom></host>;
 }
 
 routerCase.props = {

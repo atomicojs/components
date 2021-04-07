@@ -9,12 +9,12 @@
     "./modal": "./dest/modal.js"
   },
   "scripts": {
-    "start": "devserver dev src --jsxImportSource atomico --cdn",
+    "start": "devserver dev src --jsxImportSource atomico",
     "build": "devserver build src/*/*.{js,jsx} dest --jsxImportSource atomico --external atomico,@atomico/* --minify --minifyCssLiteral",
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@atomico/hooks": "latest",
+    "@atomico/hooks": "^3.3.0",
     "atomico": "latest"
   },
   "devDependencies": {

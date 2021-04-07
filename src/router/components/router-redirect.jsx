@@ -11,7 +11,7 @@ function routerRedirect() {
         (ev) => {
           let { target } = ev;
           do {
-            if (target.hasAttribute && target.hasAttribute("href")) {
+            if (target.hasAttribute("href")) {
               ev.preventDefault();
               redirect(target.getAttribute("href"));
               break;
@@ -22,9 +22,5 @@ function routerRedirect() {
     ></host>
   );
 }
-
-routerRedirect.props = {
-  base: { type: String, value: "/" },
-};
 
 export const RouterRedirect = c(routerRedirect);

@@ -4,7 +4,7 @@ import { useRender } from "@atomico/hooks/use-render";
 
 const CACHE = new Map();
 
-function routerSwitch({ transition }) {
+function routerSwitch({ transition, path }) {
   const [router, setRouter] = useState();
   const [request, setRequest] = useState({});
   const result = useRouter(router);
@@ -79,7 +79,7 @@ function routerSwitch({ transition }) {
         onslotchange={(ev) =>
           setRouter(
             [...ev.target.assignedElements()].reduce((router, element) => {
-              router[element.path] = () => element;
+              router[(path || "") + element.path] = () => element;
               return router;
             }, {})
           )
@@ -92,6 +92,7 @@ function routerSwitch({ transition }) {
 }
 
 routerSwitch.props = {
+  path: String,
   transition: Function,
   data: { type: Object, event: { type: "Data" } },
 };
