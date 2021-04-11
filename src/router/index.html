@@ -17,10 +17,10 @@
     </script>
   </head>
   <body>
-    <router-redirect>
-      <a href="/router/">Home</a>
-      <a href="/router/config">Config</a>
-      <router-switch path="/router">
+    <router-redirect path="/router">
+      <a href="/">home</a>
+      <a href="/config">Config</a>
+      <router-switch>
         <router-case path="/" for="home"></router-case>
         <router-case path="/config" for="config"></router-case>
         <section slot="home">

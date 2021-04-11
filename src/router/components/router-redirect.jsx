@@ -1,7 +1,10 @@
-import { c } from "atomico";
+import { c, useEffect } from "atomico";
 import { redirect } from "@atomico/hooks/use-router";
+import { useChannel } from "@atomico/hooks/use-channel";
 
-function routerRedirect() {
+function routerRedirect({ path }) {
+  const [, setChannel] = useChannel("InheritPath");
+  useEffect(() => setChannel(path), [path]);
   return (
     <host
       onclick={
@@ -11,9 +14,15 @@ function routerRedirect() {
         (ev) => {
           let { target } = ev;
           do {
-            if (target.hasAttribute("href")) {
+            if (
+              target.hasAttribute &&
+              target.hasAttribute("href") &&
+              !target.hasAttribute("ignore")
+            ) {
               ev.preventDefault();
-              redirect(target.getAttribute("href"));
+              const href = target.getAttribute("href");
+              !/^(http(s){0,1}:){0,1}\/\//.test(href) &&
+                redirect((path || "") + href);
               break;
             }
           } while ((target = target.parentNode));
@@ -22,5 +31,9 @@ function routerRedirect() {
     ></host>
   );
 }
+
+routerRedirect.props = {
+  path: String,
+};
 
 export const RouterRedirect = c(routerRedirect);

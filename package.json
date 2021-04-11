@@ -1,12 +1,15 @@
 {
-  "name": "@uppercod/components",
+  "name": "@atomico/components",
   "description": "Generic and utility webcomponents created with Atomico",
-  "version": "0.0.8-beta",
+  "version": "1.0.0",
+  "exports": {
+    "./modal": "./dest/modal.js",
+    "./router": "./dest/router.js",
+    "./send-form": "./dest/send-form.js"
+  },
+  "types": "*.d.ts",
   "publishConfig": {
     "access": "public"
-  },
-  "exports": {
-    "./modal": "./dest/modal.js"
   },
   "scripts": {
     "start": "devserver dev src --jsxImportSource atomico",
@@ -14,7 +17,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@atomico/hooks": "^3.3.0",
+    "@atomico/hooks": "latest",
     "atomico": "latest"
   },
   "devDependencies": {
