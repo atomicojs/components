@@ -85,7 +85,7 @@ function modal({ padding, position, showAfterMs, fullSize, fullSizeClosed }) {
       : y;
 
   const styleContainer =
-    styleX + styleY + (responsivePadding ? "--p:" + padding : "");
+    styleX + styleY + (responsivePadding ? "--p:" + responsivePadding : "");
 
   const closed = () => setShow(false);
 
