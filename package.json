@@ -1,7 +1,7 @@
 {
   "name": "@atomico/components",
   "description": "Generic and utility webcomponents created with Atomico",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "exports": {
     "./modal": "./dest/modal.js",
     "./router": "./dest/router.js",

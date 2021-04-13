@@ -25,12 +25,6 @@ const style = /*css */ `
       height: 100%;
       object-fit: cover;
     }
-    .content{
-      position: relative;
-      max-height: 100%;
-      max-width: 100%;
-      overflow: auto;
-    }
     .container{
       max-width: 100%;
       max-height: 100%;
@@ -39,11 +33,18 @@ const style = /*css */ `
       transform: translate(var(--x, 0), var(--y, 0));
       padding: var(--p);
     }
-    .container[part="container"],
+    .content{
+      position: relative;
+      max-height: 100%;
+      max-width: 100%;
+      overflow: auto;
+      transition: var(--transition);
+    }
+    .content[part="content"],
     .background[part="background"]{
       opacity: 0;
     }
-    .container[part="container-show"],
+    .content[part="content-show"],
     .background[part="background-show"]{
       opacity: 1;
     }
@@ -100,13 +101,8 @@ function modal({ padding, position, showAfterMs, fullSize, fullSizeClosed }) {
           <slot name="background"></slot>
         </span>
       )}
-      <div
-        ref={ref}
-        part={`container${show ? "-show" : ""}`}
-        class="container"
-        style={styleContainer}
-      >
-        <div class="content">
+      <div ref={ref} class="container" style={styleContainer}>
+        <div class="content" part={`content${show ? "-show" : ""}`}>
           <slot
             onclick={
               /**
