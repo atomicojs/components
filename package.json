@@ -2,27 +2,21 @@
   "name": "@atomico/components",
   "description": "Generic and utility webcomponents created with Atomico",
   "version": "1.1.1",
-  "exports": {
-    "./modal": "./dest/modal.js",
-    "./router": "./dest/router.js",
-    "./send-form": "./dest/send-form.js"
-  },
   "types": "*.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "types": "tsc",
-    "start": "devserver dev src --jsxImportSource atomico --port 8080",
-    "build": "devserver build src/*.{js,jsx} dest --jsxImportSource atomico --external atomico,@atomico/hooks --minify --minifyCssLiteral",
-    "prepare": "npm run types && npm run build"
+    "start": "vite",
+    "build": "exports src/*.{js,jsx} --exports --types"
   },
   "dependencies": {
     "@atomico/hooks": "latest",
     "atomico": "latest"
   },
   "devDependencies": {
-    "@devserver/build": "latest",
-    "@devserver/cli": "latest"
+    "vite": "latest",
+    "typescript": "latest",
+    "@atomico/exports": "latest"
   }
 }
