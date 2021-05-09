@@ -15,8 +15,8 @@
     "atomico": "latest"
   },
   "devDependencies": {
-    "vite": "latest",
+    "@atomico/exports": "latest",
     "typescript": "latest",
-    "@atomico/exports": "latest"
+    "vite": "latest"
   }
 }
