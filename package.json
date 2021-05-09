@@ -1,7 +1,7 @@
 {
   "name": "@atomico/components",
   "description": "Generic and utility webcomponents created with Atomico",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "types": "*.d.ts",
   "publishConfig": {
     "access": "public"
@@ -18,5 +18,10 @@
     "@atomico/exports": "latest",
     "typescript": "latest",
     "vite": "latest"
+  },
+  "exports": {
+    "./modal": "./dest/modal.js",
+    "./router": "./dest/router.js",
+    "./send-form": "./dest/send-form.js"
   }
 }

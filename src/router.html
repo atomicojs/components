@@ -10,14 +10,31 @@
       rel="stylesheet"
     />
     <script type="module">
-      import { RouterRedirect, RouterSwitch, RouterCase } from "./router.js";
+      import {
+        RouterRedirect,
+        RouterSwitch,
+        RouterCase,
+        RouterLink,
+      } from "./router.js";
+      import { c } from "atomico";
+      import html from "atomico/html";
+
       customElements.define("router-redirect", RouterRedirect);
       customElements.define("router-switch", RouterSwitch);
       customElements.define("router-case", RouterCase);
+      customElements.define("router-link", RouterLink, { extends: "a" });
+
+      function component() {
+        return html`<host shadowDom>
+          <${RouterLink} href="/">goooo</${RouterLink}>
+        </host>`;
+      }
+
+      customElements.define("sa-ple", c(component));
     </script>
   </head>
   <body>
-    <router-redirect path="/router">
+    <router-redirect path="/src/router">
       <a href="/">home</a>
       <a href="/config">Config</a>
       <router-switch>
@@ -28,6 +45,7 @@
         </section>
         <section slot="config">
           <h1>Config</h1>
+          <sa-ple></sa-ple>
         </section>
       </router-switch>
     </router-redirect>
