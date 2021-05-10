@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "exports src/*.{js,jsx} --exports --types"
+    "build": "exports src/*.{js,jsx} --exports --types",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@atomico/hooks": "latest",
