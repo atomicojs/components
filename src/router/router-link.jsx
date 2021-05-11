@@ -3,7 +3,7 @@ import { redirect } from "@atomico/hooks/use-router";
 import { useChannel } from "@atomico/hooks/use-channel";
 
 function routerLink({ href }) {
-  const [path] = useChannel("InheritPath");
+  const [path = ""] = useChannel("InheritPath");
   return (
     <host
       onclick={(event) => {
