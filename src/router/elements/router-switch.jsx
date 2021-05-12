@@ -37,7 +37,7 @@ function routerSwitch({ transition, path }) {
     if (load && !CACHE.has(load)) {
       let promise;
       if (typeof load == "string") {
-        promise = import(new URL(load, location));
+        promise = import(new URL(load, location).href);
       } else {
         promise = Promise.resolve(load(params));
       }
