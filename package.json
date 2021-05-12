@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@atomico/exports": "latest",
+    "@uppercod/vite-meta-url": "latest",
     "typescript": "latest",
     "vite": "latest"
   }
