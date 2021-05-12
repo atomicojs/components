@@ -19,23 +19,5 @@
     "@atomico/exports": "latest",
     "typescript": "latest",
     "vite": "latest"
-  },
-  "exports": {
-    "./modal": "./dest/modal/modal.js",
-    "./router": "./dest/router/router.js",
-    "./send-form": "./dest/send-form/send-form.js"
-  },
-  "typesVersions": {
-    "*": {
-      "modal": [
-        "modal/modal.d.ts"
-      ],
-      "router": [
-        "router/router.d.ts"
-      ],
-      "send-form": [
-        "send-form/send-form.d.ts"
-      ]
-    }
   }
 }
