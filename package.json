@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "exports src/*.{js,jsx} --exports --types",
+    "build": "exports src/*/*.{js,jsx} --exports --types",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
@@ -21,8 +21,21 @@
     "vite": "latest"
   },
   "exports": {
-    "./modal": "./dest/modal.js",
-    "./router": "./dest/router.js",
-    "./send-form": "./dest/send-form.js"
+    "./modal": "./dest/modal/modal.js",
+    "./router": "./dest/router/router.js",
+    "./send-form": "./dest/send-form/send-form.js"
+  },
+  "typesVersions": {
+    "*": {
+      "modal": [
+        "modal/modal.d.ts"
+      ],
+      "router": [
+        "router/router.d.ts"
+      ],
+      "send-form": [
+        "send-form/send-form.d.ts"
+      ]
+    }
   }
 }
