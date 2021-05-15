@@ -4,12 +4,13 @@ import { useChannel } from "@atomico/hooks/use-channel";
 
 function routerLink({ href }) {
   const [path = ""] = useChannel("InheritPath");
+  const link = path + href;
   return (
     <host
       onclick={(event) => {
         event.stopPropagation();
         event.preventDefault();
-        redirect(path + href);
+        link && redirect(link);
       }}
     ></host>
   );
