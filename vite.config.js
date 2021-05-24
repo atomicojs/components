@@ -4,14 +4,19 @@ import { readFile } from "fs/promises";
 const config = {
   esbuild: {
     jsxFactory: "_jsx",
-    jsxInject: `import {jsx as _jsx} from 'atomico/jsx-runtime'`,
+    jsxInject: `import {h as _jsx, css as _css} from 'atomico'`,
   },
   build: {
     target: "esnext",
   },
   plugins: [
     pluginMetaUrl({
-      css: async (path) => ({ inline: await readFile(path) }),
+      css: async (path, server) => {
+        const code = await readFile(path, "utf-8");
+        return {
+          inline: `_css\`${server ? code : csso.minify(code).css}\``,
+        };
+      },
     }),
   ],
 };

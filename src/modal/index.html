@@ -9,10 +9,11 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <script type="module">
-      import { Modal } from "./modal.jsx";
-      customElements.define("component-modal", Modal);
-    </script>
+    <style>
+      component-modal:not(:defined) {
+        visibility: hidden;
+      }
+    </style>
   </head>
   <body>
     <h1>
@@ -39,5 +40,9 @@
         <button data-closed>Cerrar!</button>
       </section>
     </component-modal>
+    <script type="module">
+      import { Modal } from "./modal.jsx";
+      customElements.define("component-modal", Modal);
+    </script>
   </body>
 </html>

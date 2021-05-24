@@ -43,7 +43,6 @@ function modal({ padding, position, showAfterMs, fullSize, fullSizeClosed }) {
 
   return (
     <host shadowDom>
-      <style>{style}</style>
       {fullSize && (
         <span
           class="background"
@@ -87,5 +86,7 @@ modal.props = {
   fullSize: { type: Boolean, reflect: true },
   fullSizeClosed: Boolean,
 };
+
+modal.styles = style;
 
 export const Modal = c(modal);
