@@ -78,3 +78,5 @@ sendForm.props = {
 };
 
 export const SendForm = c(sendForm);
+
+customElements.define("a-send-form", SendForm);

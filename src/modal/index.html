@@ -9,11 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      component-modal:not(:defined) {
-        visibility: hidden;
-      }
-    </style>
+    <script type="module" src="./modal.jsx"></script>
   </head>
   <body>
     <h1>
@@ -22,7 +18,7 @@
       necessitatibus dolore. Dicta sint maiores, deleniti totam impedit ab
       incidunt numquam.
     </h1>
-    <component-modal
+    <a-modal
       show
       position="center, right bottom 1080px"
       padding="1rem, 5rem 720px"
@@ -39,10 +35,6 @@
         />
         <button data-closed>Cerrar!</button>
       </section>
-    </component-modal>
-    <script type="module">
-      import { Modal } from "./modal.jsx";
-      customElements.define("component-modal", Modal);
-    </script>
+    </a-modal>
   </body>
 </html>

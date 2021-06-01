@@ -90,3 +90,5 @@ modal.props = {
 modal.styles = style;
 
 export const Modal = c(modal);
+
+customElements.define("a-modal", Modal);

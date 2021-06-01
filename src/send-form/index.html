@@ -9,13 +9,10 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <script type="module">
-      import { SendForm } from "./send-form.jsx";
-      customElements.define("send-form", SendForm);
-    </script>
+    <script type="module" src="./send-form.jsx"></script>
   </head>
   <body>
-    <send-form
+    <a-send-form
       action="https://jsonconnect.com/connect_00994f0f2b70b9ea58b5"
       json
     >
@@ -23,6 +20,6 @@
         <input type="text" name="user" />
         <button>Submit</button>
       </form>
-    </send-form>
+    </a-send-form>
   </body>
 </html>
