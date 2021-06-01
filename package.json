@@ -8,15 +8,16 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "exports src/*/*.{js,jsx} --exports --types",
+    "build": "exports src/*/*.{js,jsx} src/components.js --exports --types",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@atomico/hooks": "latest",
+    "@atomico/react": "^1.0.1",
     "atomico": "latest"
   },
   "devDependencies": {
-    "@atomico/exports": "^0.10.2",
+    "@atomico/exports": "^0.12.0",
     "@uppercod/vite-meta-url": "^1.3.1",
     "typescript": "latest",
     "vite": "latest"
