@@ -13,4 +13,3 @@ customElements.define("a-router-redirect", RouterRedirect);
 customElements.define("a-router-switch", RouterSwitch);
 customElements.define("a-router-case", RouterCase);
 customElements.define("a-router-link", RouterLink);
-s;
