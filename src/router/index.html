@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@atomico/components/a-modal</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <script type="module" src="./router.js"></script>
-  </head>
-  <body>
-    <a-router-redirect path="/src/router">
-      <a href="/">home</a>
-      <a href="/config">Config</a>
-      <a-router-switch>
-        <a-router-case path="/" for="home"></a-router-case>
-        <a-router-case path="/config" for="config"></a-router-case>
-        <section slot="home">
-          <h1>Home</h1>
-        </section>
-        <section slot="config">
-          <h1>Config</h1>
-          <sa-ple></sa-ple>
-        </section>
-      </a-router-switch>
-    </a-router-redirect>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@atomico/components/a-modal</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <script type="module" src="./router.js"></script>
+    </head>
+    <body>
+        <a-router-redirect path="/src/router">
+            <a href="/">home</a>
+            <a href="/config">Config</a>
+            <a-router-switch>
+                <a-router-case path="/" for="home"></a-router-case>
+                <a-router-case path="/config" for="config"></a-router-case>
+                <section slot="home">
+                    <h1>Home</h1>
+                </section>
+                <section slot="config">
+                    <h1>Config</h1>
+                    <sa-ple></sa-ple>
+                </section>
+            </a-router-switch>
+        </a-router-redirect>
+    </body>
 </html>
