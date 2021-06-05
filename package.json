@@ -27,7 +27,41 @@
     "@atomico/exports": "^0.14.1",
     "@types/react": "^17.0.9",
     "@uppercod/vite-meta-url": "^1.3.1",
+    "esbuild": "^0.12.6",
     "typescript": "latest",
     "vite": "latest"
+  },
+  "exports": {
+    "./modal.react": "./dest/modal.react.js",
+    "./router.react": "./dest/router.react.js",
+    "./send-form.react": "./dest/send-form.react.js",
+    "./modal.visibility": "./dest/modal.visibility.css",
+    "./router.visibility": "./dest/router.visibility.css",
+    "./send-form.visibility": "./dest/send-form.visibility.css",
+    "./modal": "./dest/modal/modal.js",
+    "./router": "./dest/router/router.js",
+    "./send-form": "./dest/send-form/send-form.js"
+  },
+  "typesVersions": {
+    "*": {
+      "modal.react": [
+        "./types/modal.react.d.ts"
+      ],
+      "router.react": [
+        "./types/router.react.d.ts"
+      ],
+      "send-form.react": [
+        "./types/send-form.react.d.ts"
+      ],
+      "modal": [
+        "./types/modal/modal.d.ts"
+      ],
+      "router": [
+        "./types/router/router.d.ts"
+      ],
+      "send-form": [
+        "./types/send-form/send-form.d.ts"
+      ]
+    }
   }
 }
