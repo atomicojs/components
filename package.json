@@ -1,7 +1,7 @@
 {
   "name": "@atomico/components",
   "description": "Generic and utility webcomponents created with Atomico",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "types": "*.d.ts",
   "publishConfig": {
     "access": "public"

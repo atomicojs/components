@@ -12,4 +12,4 @@ export { RouterLink } from "./elements/router-link.jsx";
 customElements.define("a-router-redirect", RouterRedirect);
 customElements.define("a-router-switch", RouterSwitch);
 customElements.define("a-router-case", RouterCase);
-customElements.define("a-router-link", RouterLink);
+customElements.define("a-router-link", RouterLink, { extends: "a" });
