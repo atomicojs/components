@@ -1,4 +1,4 @@
-import { c, useState, useEffect, useMemo } from "atomico";
+import { c, useState, useEffect, useMemo, useProp } from "atomico";
 import { useRouter, getPath } from "@atomico/hooks/use-router";
 import { useRender } from "@atomico/hooks/use-render";
 import { useChannel } from "@atomico/hooks/use-channel";
@@ -7,7 +7,7 @@ const CACHE = new Map();
 
 function routerSwitch({ transition, path }) {
     const [router, setRouter] = useState();
-    const [request, setRequest] = useState({});
+    const [request, setRequest] = useProp("request");
     const [rootPath, setChannel] = useChannel("InheritPath");
     const localPath = (rootPath || "") + (path || "");
 
@@ -119,6 +119,7 @@ routerSwitch.props = {
     path: String,
     transition: Function,
     data: { type: Object, event: { type: "Data" } },
+    request: { type: Object, event: { type: "Request" }, value: Object },
 };
 
 export const RouterSwitch = c(routerSwitch);

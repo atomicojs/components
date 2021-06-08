@@ -57,7 +57,7 @@ function modal({ padding, position, showAfterMs, fullSize, fullSizeClosed }) {
                     <slot
                         onclick={
                             /**
-                             * @param {any} event
+                             * @param {MouseEvent} event
                              */
                             (event) => {
                                 let { target } = event;

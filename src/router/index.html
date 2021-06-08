@@ -15,7 +15,7 @@
         <a-router-redirect path="/src/router">
             <a href="/">home</a>
             <a href="/config">Config</a>
-            <a-router-switch>
+            <a-router-switch id="sw">
                 <a-router-case path="/" for="home"></a-router-case>
                 <a-router-case path="/config" for="config"></a-router-case>
                 <section slot="home">
@@ -27,5 +27,10 @@
                 </section>
             </a-router-switch>
         </a-router-redirect>
+        <script>
+            sw.addEventListener("Request", (event) => {
+                console.log(event);
+            });
+        </script>
     </body>
 </html>
