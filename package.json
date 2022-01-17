@@ -21,7 +21,7 @@
     "@esm-bundle/chai": "^4.3.4",
     "@uppercod/vite-meta-url": "^1.5.1",
     "@web/test-runner": "^0.13.5",
-    "typescript": "latest",
+    "typescript": "^4.5.4",
     "vite": "latest",
     "vite-web-test-runner-plugin": "^0.0.3"
   },
