@@ -2,6 +2,8 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "target": "ESNext",
     "jsxImportSource": "atomico",
     "allowJs": true,
     "declaration": true,
