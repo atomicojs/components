@@ -2,6 +2,5 @@
 /router
 /send-form
 /dest
-/package-lock.json
 /*.d.ts
 /node_modules
