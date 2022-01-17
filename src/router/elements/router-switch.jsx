@@ -26,8 +26,10 @@ function routerSwitch({ transition, path }) {
     }, [localPath]);
 
     useEffect(() => {
-        if (!result) return;
         let [element, currentPath, params] = result;
+
+        if (!element) return;
+
         const { load, for: forId } = element;
 
         if (forId && !CACHE.has(forId)) {
