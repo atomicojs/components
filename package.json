@@ -10,7 +10,7 @@
     "access": "public"
   },
   "scripts": {
-    "start": "vite",
+    "start": "vite --force",
     "exports": "exports src/*/*.{js,jsx} --exports --types",
     "test": "wtr src/**/*.test.js --node-resolve",
     "prepublishOnly": "npm run test && npm run exports"
