@@ -1,0 +1,11 @@
+{
+  "exports": {
+    ".": "./keen-slider.tsx"
+  },
+  "dependencies": {
+    "keen-slider": "latest"
+  },
+  "peerDependencies": {
+    "keen-slider": "latest"
+  }
+}
