@@ -18,6 +18,27 @@
             ab molestias necessitatibus dolore. Dicta sint maiores, deleniti
             totam impedit ab incidunt numquam.
         </h1>
+        <style>
+            atomico-modal {
+                --visibility-out: visible;
+                --opacity-out: 1;
+            }
+            atomico-modal section {
+                width: 50px;
+                height: 50px;
+                border-radius: 100px;
+                background: teal;
+                transition: 0.5s ease all;
+            }
+            atomico-modal[show] section {
+                width: 200px;
+                height: 300px;
+                border-radius: 20px;
+            }
+            img {
+                display: block;
+            }
+        </style>
         <atomico-modal
             show
             position="center, right bottom 1080px"
@@ -29,11 +50,7 @@
                 slot="background"
             />
             <section>
-                <img
-                    src="https://media.giphy.com/media/Maslv9XBFXQMyFogjG/giphy.gif"
-                    style="border-radius: 1rem; max-width: 100%"
-                />
-                <button data-closed>Cerrar!</button>
+                <button data-modal="toggle">closed</button>
             </section>
         </atomico-modal>
     </body>

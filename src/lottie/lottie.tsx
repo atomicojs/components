@@ -1,5 +1,6 @@
 import {
     Type,
+    Host,
     Props,
     c,
     css,
@@ -19,18 +20,27 @@ export const cdn = {
     url: "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.1/lottie.min.js",
 };
 
-function componentLottie(props: Props<typeof componentLottie>) {
+function componentLottie(props: Props<typeof componentLottie>): Host<{
+    onLoaded: Event;
+    onDataReady: Event;
+    onComplete: Event;
+    onLoopComplete: Event;
+    onEnterFrame: Event;
+    onSegmentStart: Event;
+    onIntersection: CustomEvent<IntersectionObserverEntry>;
+    onCreateAnimation: Event;
+}> {
     const ref = useRef();
     const [animation, setAnimation] = useProp<AnimationItem>("animation");
     const [load, setLoad] = useState<boolean>(!props.lazyload);
     const [intersection, setIntersection] = useProp<boolean>("intersection");
-    const dispatchLoaded = useEvent("loaded");
-    const dispatcDataReady = useEvent("dataReady");
-    const dispatchComplete = useEvent("complete");
-    const dispatchLoopComplete = useEvent("loopComplete");
-    const dispatchEnterFrame = useEvent("enterFrame");
-    const dispatchSegmentStart = useEvent("segmentStart");
-    const dispatchIntersection = useEvent("intersection");
+    const dispatchLoaded = useEvent("Loaded");
+    const dispatcDataReady = useEvent("DataReady");
+    const dispatchComplete = useEvent("Complete");
+    const dispatchLoopComplete = useEvent("LoopComplete");
+    const dispatchEnterFrame = useEvent("EnterFrame");
+    const dispatchSegmentStart = useEvent("SegmentStart");
+    const dispatchIntersection = useEvent("Intersection");
 
     useIntersectionObserver(
         ([entries]) => {

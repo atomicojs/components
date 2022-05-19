@@ -1,10 +1,14 @@
-import { Type, Props, c, css, useRef, useEffect, useProp } from "atomico";
+import { Type, Host, Props, c, css, useRef, useEffect, useProp } from "atomico";
 import Keen, { KeenSliderInstance } from "keen-slider";
 import { useProxySlot } from "@atomico/hooks/use-slot";
 import style from "./keen-slider.css";
 import { useResponsiveState } from "@atomico/hooks/use-responsive-state";
 
-function component(props: Props<typeof component>) {
+function component(props: Props<typeof component>): Host<{
+    onCreateSlider: Event;
+    next: () => void;
+    prev: () => void;
+}> {
     const [slider, setSlider] = useProp<KeenSliderInstance>("slider");
     const refRoot = useRef();
     const refSlides = useRef();

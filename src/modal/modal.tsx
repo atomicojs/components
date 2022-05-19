@@ -1,4 +1,4 @@
-import { Props, css, c, useEffect, useProp, useRef } from "atomico";
+import { Props, Host, css, c, useEffect, useProp, useRef } from "atomico";
 import { useResponsiveState } from "@atomico/hooks/use-responsive-state";
 
 function modal({
@@ -7,7 +7,11 @@ function modal({
     showAfterMs,
     fullSize,
     fullSizeClosed,
-}: Props<typeof modal>) {
+}: Props<typeof modal>): Host<{
+    onChangeShow: Event;
+    toggle: () => void;
+    show: () => void;
+}> {
     const [show, setShow] = useProp<boolean>("show");
 
     const responsivePosition = useResponsiveState(position);
@@ -45,9 +49,10 @@ function modal({
         styleX + styleY + (responsivePadding ? "--p:" + responsivePadding : "");
 
     const closed = () => setShow(false);
+    const toggle = () => setShow((show) => !show);
 
     return (
-        <host shadowDom>
+        <host shadowDom closed={closed} toggle={toggle}>
             {fullSize && (
                 <span
                     class="background"
@@ -65,11 +70,16 @@ function modal({
                             do {
                                 if (
                                     target?.dataset &&
-                                    "closed" in target?.dataset
+                                    "modal" in target?.dataset
                                 ) {
                                     event.preventDefault();
                                     event.stopPropagation();
-                                    closed();
+                                    const { modal } = target.dataset;
+                                    if (modal == "closed") {
+                                        closed();
+                                    } else if (modal == "toggle") {
+                                        toggle();
+                                    }
                                     return;
                                 }
                             } while ((target = target.parentNode));
@@ -83,7 +93,13 @@ function modal({
 
 modal.props = {
     showAfterMs: Number,
-    show: { type: Boolean, reflect: true },
+    show: {
+        type: Boolean,
+        reflect: true,
+        event: {
+            type: "ChangeShow",
+        },
+    },
     padding: { type: String, value: "" },
     position: { type: String, value: "center" },
     fullSize: { type: Boolean, reflect: true },
@@ -94,11 +110,19 @@ modal.styles = css`
     :host {
         --x: 0px;
         --y: 0px;
-        --transition: 0.5s ease all;
-        visibility: hidden;
+        --transition-timing: ease;
+        --transition-delay: 0s;
+        --transition-duration: 0.5s;
+        --transition: var(--transition-duration) var(--transition-timing)
+            var(--transition-delay);
+        --visibility-in: visible;
+        --visibility-out: hidden;
+        --opacity-in: 1;
+        --opacity-out: 0;
+        visibility: var(--visibility-out);
     }
     :host([show]) {
-        visibility: visible;
+        visibility: var(--visibility-in);
     }
     :host([full-size]) .background {
         width: 100%;
@@ -126,16 +150,15 @@ modal.styles = css`
         position: relative;
         max-height: 100%;
         max-width: 100%;
-        overflow: auto;
         transition: var(--transition);
     }
     .content[part="content"],
     .background[part="background"] {
-        opacity: 0;
+        opacity: var(--opacity-out);
     }
     .content[part="content-show"],
     .background[part="background-show"] {
-        opacity: 1;
+        opacity: var(--opacity-in);
     }
 `;
 
