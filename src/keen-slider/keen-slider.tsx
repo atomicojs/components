@@ -1,11 +1,11 @@
-import { Type, Props, c, css, useRef, useEffect } from "atomico";
+import { Type, Props, c, css, useRef, useEffect, useProp } from "atomico";
 import Keen, { KeenSliderInstance } from "keen-slider";
 import { useProxySlot } from "@atomico/hooks/use-slot";
 import style from "./keen-slider.css";
 import { useResponsiveState } from "@atomico/hooks/use-responsive-state";
 
 function component(props: Props<typeof component>) {
-    const refSlide = useRef<KeenSliderInstance>();
+    const [slider, setSlider] = useProp<KeenSliderInstance>("slider");
     const refRoot = useRef();
     const refSlides = useRef();
     const slotSlides = useProxySlot<HTMLElement>(refSlides);
@@ -32,17 +32,14 @@ function component(props: Props<typeof component>) {
             },
         });
 
-        refSlide.current = slider;
+        setSlider(slider);
 
         return () => slider.destroy();
     }, [slotSlides.length, slidesPerView, slidesSpacing, slidesOrigin]);
 
-    const next = () => {
-        refSlide.current.next();
-    };
-    const prev = () => {
-        refSlide.current.prev();
-    };
+    const next = () => slider.next();
+
+    const prev = () => slider.prev();
 
     return (
         <host shadowDom next={next} prev={prev}>
@@ -79,6 +76,12 @@ component.props = {
     slidesPerView: String,
     slidesSpacing: String,
     slidesOrigin: String,
+    slider: {
+        type: null as Type<KeenSliderInstance>,
+        event: {
+            type: "CreateSlider",
+        },
+    },
 };
 
 component.styles = style;

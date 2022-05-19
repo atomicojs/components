@@ -1,6 +1,7 @@
 {
   "include": ["src/**/*", "vite.config.js","types.d.ts"],
     "compilerOptions": {
+      "module": "ESNext",
       "moduleResolution":"Node",
       "target": "ESNext",
       "jsx": "react-jsx",

@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "dependencies": {
+    "lottie-web":"latest"
+  },
+  "peerDependencies": {
+    "lottie-web":"latest"
+  }
+}
