@@ -1,4 +1,13 @@
-import { Props, Host, css, c, useEffect, useProp, useRef } from "atomico";
+import {
+    Props,
+    Host,
+    css,
+    c,
+    useEffect,
+    useProp,
+    useRef,
+    DOMEvent,
+} from "atomico";
 import { useResponsiveState } from "@atomico/hooks/use-responsive-state";
 
 function modal({
@@ -65,15 +74,20 @@ function modal({
             <div ref={ref} class="container" style={styleContainer}>
                 <div class="content" part={`content${show ? "-show" : ""}`}>
                     <slot
-                        onclick={(event: MouseEvent) => {
+                        onclick={(
+                            event: DOMEvent<HTMLSlotElement, MouseEvent>
+                        ) => {
                             let { target } = event;
                             do {
                                 if (
+                                    //@ts-ignore
                                     target?.dataset &&
+                                    //@ts-ignore
                                     "modal" in target?.dataset
                                 ) {
                                     event.preventDefault();
                                     event.stopPropagation();
+                                    //@ts-ignore
                                     const { modal } = target.dataset;
                                     if (modal == "closed") {
                                         closed();
