@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="../../preview.css" />
+<script type="module" src="./modal.tsx"></script>
+<style>
+    .modal_content {
+        position: relative;
+    }
+    .modal_button {
+        color: white;
+        border: 1px solid currentColor;
+        border-radius: 100px;
+        background: transparent;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 2;
+    }
+    .modal_image {
+        border-radius: 1rem;
+    }
+</style>
+<atomico-modal
+    show
+    position="center, right bottom 1080px"
+    padding="1rem, 5rem 720px"
+>
+    <section class="modal_content">
+        <img
+            class="modal_image"
+            src="https://media.giphy.com/media/Maslv9XBFXQMyFogjG/giphy.gif"
+            alt=""
+        />
+        <button class="modal_button" data-modal="toggle">closed</button>
+    </section>
+</atomico-modal>

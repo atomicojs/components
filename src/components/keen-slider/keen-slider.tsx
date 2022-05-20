@@ -1,4 +1,4 @@
-import { Type, Host, Props, c, css, useRef, useEffect, useProp } from "atomico";
+import { Type, Host, Props, c, useRef, useEffect, useProp } from "atomico";
 import Keen, { KeenSliderInstance } from "keen-slider";
 import { useProxySlot } from "@atomico/hooks/use-slot";
 import style from "./keen-slider.css";
