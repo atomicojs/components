@@ -1,27 +1,52 @@
-import { Props, c, css, useProp, useState } from "atomico";
+import { useListener, useListenerState } from "@atomico/hooks/use-listener";
+import {
+    Ref,
+    Props,
+    c,
+    css,
+    useProp,
+    useState,
+    useRef,
+    useHost,
+} from "atomico";
+
+function useDragResize(ref: Ref): [boolean, number] {
+    const host = useHost();
+    const [active, setActive] = useState(false);
+    const [value, setValue] = useState(1);
+
+    useListener(ref, "mousedown", () => {
+        setActive(true);
+    });
+
+    useListener(host, "mouseup", () => {
+        setActive(false);
+    });
+
+    useListener(host, "mouseleave", () => {
+        setActive(false);
+    });
+
+    useListener(host, "mousemove", (event: MouseEvent) => {
+        if (active) {
+            setValue(event.offsetX / host.current.clientWidth);
+        }
+    });
+
+    return [active, value];
+}
+
 function iframeResize(props: Props<typeof iframeResize>) {
-    const [resize, setResize] = useProp<boolean>("resize");
-    const [state, setState] = useState(1);
+    const refDragResize = useRef();
+    const [active, offsetX] = useDragResize(refDragResize);
+
     return (
-        <host
-            shadowDom
-            onmouseup={() => setResize(false)}
-            onmouseleave={() => setResize(false)}
-            onmousemove={
-                resize &&
-                ((event) => {
-                    const p = event.offsetX / event.currentTarget.clientWidth;
-                    setState(p);
-                })
-            }
-        >
-            <iframe src={props.src} class="iframe"></iframe>
-            <div
-                class="resize"
-                onmousedown={() => {
-                    setResize(true);
-                }}
-            >
+        <host shadowDom>
+            <div class="mask">
+                <iframe src={props.src} class="iframe"></iframe>
+                {active && <div class="layer"></div>}
+            </div>
+            <div class="resize" ref={refDragResize}>
                 <slot name="resize-icon">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +77,7 @@ function iframeResize(props: Props<typeof iframeResize>) {
                 </slot>
             </div>
             <style>{`:host{
-                --width: ${100 * state}%;
+                --width: ${100 * offsetX}%;
             }`}</style>
         </host>
     );
@@ -79,9 +104,22 @@ iframeResize.styles = css`
         display: flex;
     }
     .iframe {
-        width: calc(var(--width) - 30px);
+        width: 100%;
         border: none;
         background: var(--iframe-bg);
+    }
+    .mask {
+        width: calc(var(--width) - 30px);
+        position: relative;
+    }
+    .layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
     }
     .resize {
         width: 30px;

@@ -7,8 +7,11 @@ import {
     useProp,
     useRef,
     DOMEvent,
+    useHost,
 } from "atomico";
 import { useResponsiveState } from "@atomico/hooks/use-responsive-state";
+
+const SRC = Symbol("src");
 
 function modal({
     padding,
@@ -16,12 +19,15 @@ function modal({
     showAfterMs,
     fullSize,
     fullSizeClosed,
+    lazyload,
 }: Props<typeof modal>): Host<{
     onChangeShow: Event;
     toggle: () => void;
     show: () => void;
 }> {
+    const host = useHost();
     const [show, setShow] = useProp<boolean>("show");
+    const [inTransition, setTransition] = useProp<boolean>("inTransition");
 
     const responsivePosition = useResponsiveState(position);
     const responsivePadding = useResponsiveState(padding || "");
@@ -57,11 +63,24 @@ function modal({
     const styleContainer =
         styleX + styleY + (responsivePadding ? "--p:" + responsivePadding : "");
 
+    const open = () => setShow(true);
     const closed = () => setShow(false);
     const toggle = () => setShow((show) => !show);
 
+    useEffect(() => {
+        if (lazyload) {
+            host.current.querySelectorAll("[data-src]").forEach((node) => {
+                const src = node.getAttribute("data-src");
+                if (!(SRC in node)) {
+                    node[SRC] = node.getAttribute("src") || "";
+                }
+                node.setAttribute("src", show ? src : node[SRC]);
+            });
+        }
+    }, [show]);
+
     return (
-        <host shadowDom closed={closed} toggle={toggle}>
+        <host shadowDom closed={closed} toggle={toggle} open={open}>
             {fullSize && (
                 <span
                     class="background"
@@ -71,7 +90,13 @@ function modal({
                     <slot name="background"></slot>
                 </span>
             )}
-            <div ref={ref} class="container" style={styleContainer}>
+            <div
+                ontransitionend={() => setTransition(false)}
+                ontransitionstart={() => setTransition(true)}
+                ref={ref}
+                class="container"
+                style={styleContainer}
+            >
                 <div class="content" part={`content${show ? "-show" : ""}`}>
                     <slot
                         onclick={(
@@ -89,7 +114,9 @@ function modal({
                                     event.stopPropagation();
                                     //@ts-ignore
                                     const { modal } = target.dataset;
-                                    if (modal == "closed") {
+                                    if (modal == "open") {
+                                        open();
+                                    } else if (modal == "closed") {
                                         closed();
                                     } else if (modal == "toggle") {
                                         toggle();
@@ -117,7 +144,12 @@ modal.props = {
     padding: { type: String, value: "" },
     position: { type: String, value: "center" },
     fullSize: { type: Boolean, reflect: true },
+    lazyload: Boolean,
     fullSizeClosed: Boolean,
+    inTransition: {
+        type: Boolean,
+        reflect: true,
+    },
 };
 
 modal.styles = css`

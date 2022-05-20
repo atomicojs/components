@@ -10,7 +10,7 @@
     "access": "public"
   },
   "scripts": {
-    "start": "vite",
+    "start": "vite --force",
     "build": "vite build",
     "test": "vitest ",
     "prepublishOnly": "npm run test && npm run exports"
