@@ -40,7 +40,7 @@ function asideLink({ source }: Props<typeof asideLink>) {
                             <a
                                 id={`menu-${id}`}
                                 target={source.href ? "_blank" : ""}
-                                href={source.href || source.src}
+                                href={source.href || source.path || source.src}
                             >
                                 {source.label}
                             </a>

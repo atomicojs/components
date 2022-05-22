@@ -10,6 +10,7 @@ import logo from "./logo.svg";
 export interface SubSource {
     label: string;
     href?: string;
+    path?: string;
     src?: string;
 }
 
@@ -47,7 +48,7 @@ function preview({ sources }: Props<typeof preview>) {
                         ></RouterCase>
                     ))}
                     <RouterCase
-                        path="/components/{...example}"
+                        path="/{...example}"
                         load={(params) => (
                             <IframeResize
                                 src={`/components/${params.example}.html`}

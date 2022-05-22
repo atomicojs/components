@@ -25,8 +25,10 @@
                 "./**/preview.{js,ts,tsx,jsx}"
             );
 
-            document.querySelector("preview-main").sources =
-                globToSources(modules);
+            document.querySelector("preview-main").sources = globToSources(
+                modules,
+                "/components"
+            );
         </script>
     </body>
 </html>
