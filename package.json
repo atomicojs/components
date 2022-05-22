@@ -9,6 +9,19 @@
   "publishConfig": {
     "access": "public"
   },
+  "author": {
+    "name": "UpperCod",
+    "email": "uppercod.git@gmail.com",
+    "url": "https://github.com/uppercod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/atomicojs/components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/atomicojs/components/issues"
+  },
+  "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components",
   "scripts": {
     "start": "vite --force",
     "build": "vite build",
