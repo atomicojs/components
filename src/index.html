@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <script type="module" src="./site/site.tsx"></script>
+        <script type="module" src="./preview/preview-main.tsx"></script>
         <link rel="stylesheet" href="./preview.css" />
         <style>
             html,
@@ -17,6 +17,16 @@
         </style>
     </head>
     <body>
-        <atomico-site></atomico-site>
+        <preview-main></preview-main>
+        <script type="module">
+            import { globToSources } from "./preview/utils";
+
+            const modules = import.meta.globEager(
+                "./**/preview.{js,ts,tsx,jsx}"
+            );
+
+            document.querySelector("preview-main").sources =
+                globToSources(modules);
+        </script>
     </body>
 </html>

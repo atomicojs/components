@@ -1,7 +1,6 @@
 import {
     Type,
     Props,
-    Ref,
     c,
     css,
     useRef,
@@ -11,7 +10,7 @@ import {
 } from "atomico";
 import { useRouteMatch } from "@atomico/hooks/use-router";
 import { useResizeObserverState } from "@atomico/hooks/use-resize-observer";
-import { Source } from "./site";
+import { Source } from "./preview-main";
 import { tokens } from "./tokens";
 
 function asideLink({ source }: Props<typeof asideLink>) {
@@ -30,22 +29,18 @@ function asideLink({ source }: Props<typeof asideLink>) {
 
     return (
         <host shadowDom open={!!current}>
-            <a id="header" class="aside-link-header" href={source.path}>
+            <a id="header" class="header" href={source.path}>
                 <img src={source.icon} alt="Icon" />
                 <span>{source.label}</span>
             </a>
             {source.menu && (
-                <div class="aside-link-mask">
-                    <div class="aside-link-menu" ref={refMenu}>
+                <div class="mask">
+                    <div class="menu" ref={refMenu}>
                         {source.menu.map((source, id) => (
                             <a
                                 id={`menu-${id}`}
-                                target={
-                                    /(http(s){0,1}:){0,1}\/\//.test(source.src)
-                                        ? "_blank"
-                                        : ""
-                                }
-                                href={source.src}
+                                target={source.href ? "_blank" : ""}
+                                href={source.href || source.src}
                             >
                                 {source.label}
                             </a>
@@ -53,8 +48,8 @@ function asideLink({ source }: Props<typeof asideLink>) {
                     </div>
                 </div>
             )}
-            <div class="aside-link-mark">
-                <div class="aside-link-mask_line"></div>
+            <div class="mark">
+                <div class="mask_line"></div>
             </div>
             <style>{`
             :host([open]){
@@ -91,7 +86,7 @@ asideLink.styles = [
             --mark-opacity: 1;
         }
 
-        .aside-link-header {
+        .header {
             width: 100%;
             height: auto;
             display: grid;
@@ -99,16 +94,16 @@ asideLink.styles = [
             align-items: center;
             grid-gap: var(--gap);
         }
-        .aside-link-menu {
+        .menu {
             display: grid;
             padding-left: calc(var(--icon-size) + var(--gap));
             box-sizing: border-box;
             font-size: 0.875em;
         }
-        .aside-link-menu a {
+        .menu a {
             padding: 0.25rem 0px;
         }
-        .aside-link-mask {
+        .mask {
             overflow: hidden;
             height: var(--toggle-height);
             transition: var(--transition);
@@ -117,7 +112,7 @@ asideLink.styles = [
             text-decoration: none;
             color: unset;
         }
-        .aside-link-mark {
+        .mark {
             width: 1px;
             position: absolute;
             height: 100%;
@@ -127,7 +122,7 @@ asideLink.styles = [
             opacity: var(--mark-opacity);
             transition: var(--transition);
         }
-        .aside-link-mask_line {
+        .mask_line {
             width: 100%;
             background: var(--mark-cl);
             height: var(--current-h);
@@ -139,4 +134,4 @@ asideLink.styles = [
 
 export const AsideLink = c(asideLink);
 
-customElements.define("site-aside-link", AsideLink);
+customElements.define("preview-link", AsideLink);

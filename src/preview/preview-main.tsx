@@ -1,16 +1,16 @@
-import { c, css, useHost } from "atomico";
-import { IframeResize } from "../components/iframe-resize/iframe-resize";
+import { Type, Props, c, css, useHost } from "atomico";
+import { IframeResize } from "./preview-iframe";
 import { RouterSwitch, RouterCase } from "@atomico/router";
 import { useRedirect } from "@atomico/hooks/use-router";
-import { Aside } from "./site-aside";
-import { AsideLink } from "./site-aside-link";
-import icons from "./icons/icons";
+import { Aside } from "./preview-aside";
+import { AsideLink } from "./preview-link";
 import { tokens } from "./tokens";
 import logo from "./logo.svg";
 
 export interface SubSource {
     label: string;
-    src: string;
+    href?: string;
+    src?: string;
 }
 
 export interface Source {
@@ -21,38 +21,7 @@ export interface Source {
     menu?: SubSource[];
 }
 
-const sources: Source[] = [
-    {
-        label: "Modal",
-        path: "/",
-        icon: icons.slide,
-        src: "/components/modal/",
-        menu: [
-            {
-                label: "Documentation",
-                src: "https://atomico.gitbook.io/doc/atomico/atomico-components/router",
-            },
-            {
-                label: "Example 2",
-                src: "/components/modal/example-2",
-            },
-        ],
-    },
-    {
-        label: "Lottie",
-        path: "/lottie",
-        icon: icons.lottie,
-        src: "/components/lottie/",
-    },
-    {
-        label: "Keen slider",
-        path: "/keen-slider",
-        icon: icons.modal,
-        src: "/components/keen-slider/",
-    },
-];
-
-function site() {
+function preview({ sources }: Props<typeof preview>) {
     const host = useHost();
     useRedirect(host);
 
@@ -61,15 +30,17 @@ function site() {
             <div class="view">
                 <div class="aside">
                     <Aside>
-                        <img src={logo} alt="Logo" slot="brand" width="180" />
+                        <a href="/" slot="brand">
+                            <img src={logo} alt="Logo" width="180" />
+                        </a>
 
-                        {sources.map((source) => (
+                        {sources?.map((source) => (
                             <AsideLink source={source}></AsideLink>
                         ))}
                     </Aside>
                 </div>
                 <RouterSwitch class="router">
-                    {sources.map((source) => (
+                    {sources?.map((source) => (
                         <RouterCase
                             path={source.path}
                             load={() => <IframeResize src={source.src} />}
@@ -89,11 +60,18 @@ function site() {
     );
 }
 
-site.styles = [
+preview.props = {
+    sources: Array as Type<Source[]>,
+};
+
+preview.styles = [
     tokens,
     css`
         :host {
             --aside-link-gap: var(--size-m);
+            overflow: hidden;
+            display: block;
+            height: 100vh;
         }
         .view,
         .router,
@@ -110,20 +88,11 @@ site.styles = [
 
         .view {
             display: grid;
-            grid-template-columns: 240px 1fr;
-        }
-        .aside {
-        }
-        .aside-button {
-            display: grid;
-            grid-template-columns: 28px auto;
-            align-items: center;
-            text-decoration: none;
-            gap: var(--aside-link-gap);
+            grid-template: 100vh/ 240px 1fr;
         }
     `,
 ];
 
-export const Site = c(site);
+export const Preview = c(preview);
 
-customElements.define("atomico-site", Site);
+customElements.define("preview-main", Preview);
