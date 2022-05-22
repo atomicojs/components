@@ -39,7 +39,7 @@ function asideLink({ source }: Props<typeof asideLink>) {
                         {source.menu.map((source, id) => (
                             <a
                                 id={`menu-${id}`}
-                                target={source.href ? "_blank" : ""}
+                                target={source.href ? "_blank" : null}
                                 href={source.href || source.path || source.src}
                             >
                                 {source.label}

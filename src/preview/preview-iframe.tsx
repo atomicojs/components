@@ -7,16 +7,26 @@ function useDragResize(ref: Ref): [boolean, number] {
     const [active, setActive] = useState(false);
     const [value, setValue] = useDebounceState(1, 1, "fps");
 
-    useListener(ref, "mousedown", () => {
-        setActive(true);
-    });
+    const start = () => setActive(true);
+    const end = () => setActive(false);
 
-    useListener(host, "mouseup", () => {
-        setActive(false);
-    });
+    useListener(ref, "mousedown", start);
 
-    useListener(host, "mouseleave", () => {
-        setActive(false);
+    useListener(host, "mouseup", end);
+
+    useListener(host, "mouseleave", end);
+
+    useListener(ref, "touchstart", start);
+
+    useListener(host, "touchend", end);
+
+    useListener(host, "touchmove", (event: TouchEvent) => {
+        const {
+            targetTouches: [touche],
+        } = event;
+        const rect = host.current.getBoundingClientRect();
+        const offsetX = touche.pageX - rect.x;
+        setValue(offsetX / host.current.clientWidth);
     });
 
     useListener(host, "mousemove", (event: MouseEvent) => {
@@ -80,7 +90,7 @@ function iframeResize(props: Props<typeof iframeResize>): Host<{
                         </svg>
                     </slot>
                 </div>
-                <button class="button">
+                <a class="button" href={props.src} target="_blank">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="10.001"
@@ -88,7 +98,7 @@ function iframeResize(props: Props<typeof iframeResize>): Host<{
                     >
                         <path d="M0 10V0h4v1H1v8h8V6h1v4Zm3.441-4.187 4.814-4.812H7V0h3v3H9V1.67L4.149 6.518Z" />
                     </svg>
-                </button>
+                </a>
             </div>
             <style>{`:host{
                 --width: ${100 * offsetX}%;
