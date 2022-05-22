@@ -1,4 +1,4 @@
-import { Source } from "./preview";
+import { Source } from "./preview-main";
 
 export const globToSources = (modules: {
     [file: string]: { default: Source };
