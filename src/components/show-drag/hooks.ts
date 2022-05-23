@@ -23,9 +23,7 @@ export function useGesture(
 ) {
     useDrag(refHost, refActionable, {
         start(event) {
-            if (event.cancelable) {
-                event.preventDefault();
-            }
+            document.body.style.setProperty("touch-action", "none");
         },
         end(eventStart, eventEnd) {
             const targetStart =
@@ -53,12 +51,7 @@ export function useGesture(
                     : "down";
 
             if (actions[action]) actions[action](ms);
-        },
-        move(event) {
-            if (event.cancelable) {
-                event.preventDefault();
-                event.stopImmediatePropagation();
-            }
+            document.body.style.removeProperty("touch-action");
         },
     });
 }
