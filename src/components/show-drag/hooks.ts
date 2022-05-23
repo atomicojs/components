@@ -44,8 +44,9 @@ export function useGesture(
                         ? "left"
                         : "right"
                     : y > 0
-                    ? "top"
+                    ? "up"
                     : "down";
+
             if (actions[action]) actions[action](ms);
         },
     });

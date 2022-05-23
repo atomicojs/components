@@ -3,6 +3,7 @@ drag:
   height: 100%
   transition: .5s ease all
   icon:
-    width: 2px;
-    height: 2rem;
-    radius: 100px;
+    width: 2px
+    height: 2rem
+    radius: 100px
+    color: currentColor
