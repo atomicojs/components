@@ -49,6 +49,9 @@ export function useGesture(
 
             if (actions[action]) actions[action](ms);
         },
+        move(event) {
+            event.stopImmediatePropagation();
+        },
     });
 }
 
@@ -59,7 +62,9 @@ export function useDrag(
 ): boolean {
     const [active, setActive] = useState(false);
     const refEvent = useRef();
+
     const start = (event: DragEvent) => {
+        event.preventDefault();
         refEvent.current = event;
         setActive(true);
         actions.start && actions.start(event);

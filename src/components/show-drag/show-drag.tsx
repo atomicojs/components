@@ -158,11 +158,13 @@ showDrag.styles = css`
         left: 0;
         top: 0;
         --transform: calc((-100%) + var(--drag-width));
+        touch-action: pan-x;
     }
     :host([position="bottom"]) {
         left: 0;
         bottom: 0;
         flex-flow: column-reverse;
+        touch-action: pan-y;
         --transform: 0px, calc((100%) + var(--drag-width));
     }
     :host(:not([dragging])[position][show]) {
