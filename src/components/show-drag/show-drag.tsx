@@ -147,6 +147,7 @@ showDrag.styles = css`
         display: flex;
         flex-flow: row nowrap;
         transform: translate(var(--transform));
+        overscroll-behavior: contain;
     }
     :host([ready]) {
         transition: var(--transition);

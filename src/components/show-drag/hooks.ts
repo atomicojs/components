@@ -22,6 +22,11 @@ export function useGesture(
     actions: ActionsGesture
 ) {
     useDrag(refHost, refActionable, {
+        start(event) {
+            if (event.cancelable) {
+                event.preventDefault();
+            }
+        },
         end(eventStart, eventEnd) {
             const targetStart =
                 eventStart instanceof TouchEvent
@@ -50,7 +55,10 @@ export function useGesture(
             if (actions[action]) actions[action](ms);
         },
         move(event) {
-            event.stopImmediatePropagation();
+            if (event.cancelable) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            }
         },
     });
 }
@@ -64,7 +72,6 @@ export function useDrag(
     const refEvent = useRef();
 
     const start = (event: DragEvent) => {
-        event.preventDefault();
         refEvent.current = event;
         setActive(true);
         actions.start && actions.start(event);
