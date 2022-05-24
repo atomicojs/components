@@ -1,4 +1,4 @@
-import { Ref, useRef, useState, useEffect } from "atomico";
+import { Ref, useRef, useState } from "atomico";
 import { useListener } from "@atomico/hooks/use-listener";
 
 export type DragEvent = MouseEvent | TouchEvent;
