@@ -58,7 +58,7 @@ function showDrag({
                 size: number
             ) => {
                 const direction = value > pageValue;
-                const move = direction ? value - pageValue : pageValue - value;
+                const move = Math.abs(pageValue - value);
                 const percent = (move > size ? size : move) / size;
                 return direction ? percent : 1 - percent;
             };
