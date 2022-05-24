@@ -1,4 +1,4 @@
-import { Ref, useRef, useState } from "atomico";
+import { Ref, useRef, useState, useEffect } from "atomico";
 import { useListener } from "@atomico/hooks/use-listener";
 
 export type DragEvent = MouseEvent | TouchEvent;
@@ -22,9 +22,6 @@ export function useGesture(
     actions: ActionsGesture
 ) {
     useDrag(refHost, refActionable, {
-        start(event) {
-            document.body.style.setProperty("touch-action", "none");
-        },
         end(eventStart, eventEnd) {
             const targetStart =
                 eventStart instanceof TouchEvent
@@ -51,7 +48,6 @@ export function useGesture(
                     : "down";
 
             if (actions[action]) actions[action](ms);
-            document.body.style.removeProperty("touch-action");
         },
     });
 }
@@ -60,9 +56,12 @@ export function useDrag(
     refHost: Ref,
     refActionable: Ref,
     actions: Actions
-): boolean {
+): [boolean, boolean] {
     const [active, setActive] = useState(false);
+    const [dragging, setDragging] = useState(false);
     const refEvent = useRef();
+
+    const mode = { passive: true };
 
     const start = (event: DragEvent) => {
         refEvent.current = event;
@@ -72,25 +71,32 @@ export function useDrag(
 
     const end = (event: DragEvent) => {
         setActive(false);
-        active && actions.end && actions.end(refEvent.current, event);
+        if (active) {
+            actions.end && actions.end(refEvent.current, event);
+            setDragging(false);
+        }
     };
 
-    const handle = (event: DragEvent) =>
-        active && actions.move && actions.move(event);
+    const handle = (event: DragEvent) => {
+        if (active) {
+            actions.move && actions.move(event);
+            setDragging(true);
+        }
+    };
 
-    useListener(refActionable, "mousedown", start);
+    useListener(refActionable, "mousedown", start, mode);
 
-    useListener(refHost, "mouseup", end);
+    useListener(refHost, "mouseup", end, mode);
 
-    useListener(refHost, "mouseleave", end);
+    useListener(refHost, "mouseleave", end, mode);
 
-    useListener(refActionable, "touchstart", start);
+    useListener(refActionable, "touchstart", start, mode);
 
-    useListener(refHost, "touchend", end);
+    useListener(refHost, "touchend", end, mode);
 
-    useListener(refHost, "touchmove", handle);
+    useListener(refHost, "touchmove", handle, mode);
 
-    useListener(refHost, "mousemove", handle);
+    useListener(refHost, "mousemove", handle, mode);
 
-    return active;
+    return [active, dragging];
 }

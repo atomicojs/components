@@ -13,76 +13,98 @@ import { useDebounceState } from "@atomico/hooks/use-debounce-state";
 import { getCoordinates } from "@atomico/hooks/use-click-coordinates";
 import { useResizeObserverState } from "@atomico/hooks/use-resize-observer";
 
-function showDrag({ position }: Props<typeof showDrag>) {
+function showDrag({
+    position,
+    msMinDrag,
+    msMaxDrag,
+    minSizeShow,
+}: Props<typeof showDrag>) {
     const host = useHost();
     const refWindow = useRef(window);
     const refActionable = useRef<HTMLElement>();
     const refContent = useRef<HTMLElement>();
     const [, setShow] = useProp<boolean>("show");
-    const [offset, setOffset] = useState({ x: 0, y: 0 });
+    const [offset, setOffset] = useState({ x: 0, y: 0, rect: { x: 0, y: 0 } });
     const rect = useResizeObserverState(refContent);
     const [drag, setDrag] = useDebounceState(1, { x: 0, y: 0 }, "fps");
 
-    const dragging = useDrag(refWindow, refActionable, {
+    const [, dragging] = useDrag(refWindow, refActionable, {
         start(event) {
             const target =
                 event instanceof TouchEvent ? event.targetTouches[0] : event;
+
             const { offset } = getCoordinates({
                 pageX: target.pageX,
                 pageY: target.pageY,
                 currentTarget: refActionable.current,
             });
-            setOffset(offset);
+
+            const { x, y } = refActionable.current.getBoundingClientRect();
+
+            setOffset({ ...offset, rect: { x, y } });
         },
         move(event) {
             const target =
                 event instanceof TouchEvent ? event.targetTouches[0] : event;
-
-            const { clientWidth, clientHeight } = host.current;
-            const { innerWidth, innerHeight } = window;
 
             let { pageX, pageY } = target;
 
             pageX -= offset.x;
             pageY -= offset.y;
 
-            let dragX = Math.abs(pageX / clientWidth);
-            let dragY = Math.abs((innerHeight - pageY) / clientHeight);
+            const getPercent = (
+                value: number,
+                pageValue: number,
+                size: number
+            ) => {
+                const direction = value > pageValue;
+                const move = direction ? value - pageValue : pageValue - value;
+                const percent = (move > size ? size : move) / size;
+                return direction ? percent : 1 - percent;
+            };
 
-            const x = dragX > 1 ? 1 : dragX;
-            const y = dragY > 1 ? 1 : dragY;
+            const y = getPercent(offset.rect.y, pageY, rect.height);
+            const x = getPercent(offset.rect.x, pageX, rect.width);
 
             setDrag({
-                x,
+                x: 1 - x,
                 y,
             });
         },
     });
 
     useGesture(refWindow, refActionable, {
-        right: (ms) => ms > 100 && ms < 200 && setShow(true),
-        left: (ms) => ms > 100 && ms < 200 && setShow(false),
+        right: (ms) => ms > msMinDrag && ms < msMaxDrag && setShow(true),
+        left: (ms) => ms > msMinDrag && ms < msMaxDrag && setShow(false),
         down: (ms) =>
-            position === "bottom" && ms > 100 && ms < 200 && setShow(false),
+            position === "bottom" &&
+            ms > msMinDrag &&
+            ms < msMaxDrag &&
+            setShow(false),
         up: (ms) =>
-            position === "bottom" && ms > 100 && ms < 200 && setShow(true),
+            position === "bottom" &&
+            ms > msMinDrag &&
+            ms < msMaxDrag &&
+            setShow(true),
     });
 
     useEffect(() => {
-        const showX = drag.x >= 0.5;
-        const showY = drag.y >= 0.5;
+        if (dragging) return;
+
+        const showX = drag.x >= minSizeShow;
+        const showY = drag.y >= minSizeShow;
 
         if (position === "bottom") {
             setShow(showY);
         } else {
             setShow(showX);
         }
-        // setShow(show);
-        // if (!dragging) {
-        //     setOffset({ x: 0, y: 0 });
-        //     setDrag(show ? { x: 1, y: 1 } : { x: 0, y: 0 });
-        // }
     }, [dragging]);
+
+    useEffect(() => {
+        document.body.style.setProperty("touch-action", "none");
+        return () => document.body.style.removeProperty("touch-action");
+    }, []);
 
     return (
         <host shadowDom dragging={dragging} ready={!!rect}>
@@ -135,6 +157,18 @@ showDrag.props = {
         type: Boolean,
         reflect: true,
     },
+    msMinDrag: {
+        type: Number,
+        value: 50,
+    },
+    msMaxDrag: {
+        type: Number,
+        value: 300,
+    },
+    minSizeShow: {
+        type: Number,
+        value: 0.5,
+    },
 };
 
 showDrag.styles = css`
@@ -175,7 +209,7 @@ showDrag.styles = css`
     }
 
     :host([dragging][position="left"]) {
-        --transform: calc(var(--move-x) * var(--drag-x)), 0px;
+        --transform: calc((var(--move-x) * var(--drag-x))), 0px;
     }
     :host([ready][position="bottom"]) {
         width: 100%;

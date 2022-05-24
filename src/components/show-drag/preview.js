@@ -9,9 +9,5 @@ export default {
             label: "Documentation",
             href: "https://atomico.gitbook.io/doc/atomico/atomico-components/show-drag",
         },
-        {
-            label: "Position bottom",
-            src: "./example-1",
-        },
     ],
 };
