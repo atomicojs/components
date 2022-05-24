@@ -2,6 +2,8 @@ drag:
   width: 3rem
   height: 100%
   transition: .5s ease all
+  actionable:
+    width: 3rem
   icon:
     width: 2px
     height: 3rem

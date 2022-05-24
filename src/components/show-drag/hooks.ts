@@ -46,7 +46,6 @@ export function useGesture(
                     : y > 0
                     ? "up"
                     : "down";
-
             if (actions[action]) actions[action](ms);
         },
     });

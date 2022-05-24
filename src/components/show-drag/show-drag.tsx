@@ -74,8 +74,16 @@ function showDrag({
     });
 
     useGesture(refWindow, refActionable, {
-        right: (ms) => ms > msMinDrag && ms < msMaxDrag && setShow(true),
-        left: (ms) => ms > msMinDrag && ms < msMaxDrag && setShow(false),
+        right: (ms) =>
+            position === "left" &&
+            ms > msMinDrag &&
+            ms < msMaxDrag &&
+            setShow(true),
+        left: (ms) =>
+            position === "left" &&
+            ms > msMinDrag &&
+            ms < msMaxDrag &&
+            setShow(false),
         down: (ms) =>
             position === "bottom" &&
             ms > msMinDrag &&
@@ -109,18 +117,26 @@ function showDrag({
     return (
         <host shadowDom dragging={dragging} ready={!!rect}>
             <div class="drag" ref={refActionable}>
-                <button
-                    class="drag-actionable"
-                    onkeydown={(event) => {
-                        if (event.code === "Space") {
-                            setShow((show) => !show);
-                        }
-                    }}
-                >
-                    <slot name="drag-icon">
-                        <div class="drag-icon"></div>
-                    </slot>
-                </button>
+                <div class="drag-visible">
+                    <slot name="drag-visible"></slot>
+                </div>
+                <div class="drag-banner">
+                    <slot name="drag-start">1</slot>
+                    <button
+                        class="drag-actionable"
+                        ondblclick={() => setShow((show) => !show)}
+                        onkeydown={(event) => {
+                            if (event.code === "Space") {
+                                setShow((show) => !show);
+                            }
+                        }}
+                    >
+                        <slot name="drag-icon">
+                            <div class="drag-icon"></div>
+                        </slot>
+                    </button>
+                    <slot name="drag-end">2</slot>
+                </div>
             </div>
             <div class="content" ref={refContent}>
                 <slot></slot>
@@ -177,6 +193,9 @@ showDrag.styles = css`
     :host {
         --content-order: -1;
         --transition: var(--drag-transition);
+        --actionable-width: var(--drag-actionable-width);
+        --actionable-height: auto;
+        --banner-flow: column;
         position: fixed;
         display: flex;
         flex-flow: row nowrap;
@@ -198,6 +217,11 @@ showDrag.styles = css`
         left: 0;
         bottom: 0;
         flex-flow: column-reverse;
+        --drag-row-flow: column-reverse;
+        --drag-row-width: 100%;
+        --banner-flow: row;
+        --actionable-width: auto;
+        --actionable-height: var(--drag-actionable-width);
         --transform: 0px, calc((100%) + var(--drag-width));
     }
     :host(:not([dragging])[position][show]) {
@@ -219,28 +243,43 @@ showDrag.styles = css`
         --transform: 0px, calc(var(--move-y) * (var(--drag-y) * -1));
     }
 
-    :host([ready][position="bottom"]) .drag-icon {
+    :host([position="bottom"]) .drag-icon {
         height: var(--drag-icon-width);
         width: var(--drag-icon-height);
     }
 
-    :host([ready][position="bottom"]) .drag {
-        width: var(--drag-height);
-        height: var(--drag-width);
+    :host([position="bottom"]) .drag-banner {
+        width: 100%;
     }
 
     .drag {
-        width: var(--drag-width);
-        height: var(--drag-height);
+        width: auto;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-flow: var(--drag-row-flow);
         cursor: pointer;
     }
+
+    .drag-banner {
+        width: var(--drag-row-width);
+        display: flex;
+        flex-flow: var(--banner-flow);
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .drag-visible {
+        width: var(--drag-row-width);
+    }
+
     .drag-actionable {
+        width: var(--actionable-width);
+        height: var(--actionable-height);
         background: transparent;
         border: none;
         padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .drag-icon {
         width: var(--drag-icon-width);
