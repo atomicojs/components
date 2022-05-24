@@ -7,6 +7,7 @@ import {
     useEffect,
     useProp,
     useState,
+    Host,
 } from "atomico";
 import { useDrag, useGesture } from "./hooks";
 import { useDebounceState } from "@atomico/hooks/use-debounce-state";
@@ -18,12 +19,12 @@ function showDrag({
     msMinDrag,
     msMaxDrag,
     minSizeShow,
-}: Props<typeof showDrag>) {
+}: Props<typeof showDrag>): Host<{ toggle(): void }> {
     const host = useHost();
     const refWindow = useRef(window);
     const refActionable = useRef<HTMLElement>();
     const refContent = useRef<HTMLElement>();
-    const [, setShow] = useProp<boolean>("show");
+    const [show, setShow] = useProp<boolean>("show");
     const [offset, setOffset] = useState({ x: 0, y: 0, rect: { x: 0, y: 0 } });
     const rect = useResizeObserverState(refContent);
     const [drag, setDrag] = useDebounceState(1, { x: 0, y: 0 }, "fps");
@@ -57,17 +58,21 @@ function showDrag({
                 pageValue: number,
                 size: number
             ) => {
-                const direction = value > pageValue;
                 const move = Math.abs(pageValue - value);
-                const percent = (move > size ? size : move) / size;
-                return direction ? percent : 1 - percent;
+                return (move > size ? size : move) / size;
             };
 
-            const y = getPercent(offset.rect.y, pageY, rect.height);
-            const x = getPercent(offset.rect.x, pageX, rect.width);
+            const dY = offset.rect.y > pageY;
+            const dX = offset.rect.x < pageX;
+
+            const y =
+                dY && show ? 0 : getPercent(offset.rect.y, pageY, rect.height);
+
+            const x =
+                dX && show ? 0 : getPercent(offset.rect.x, pageX, rect.width);
 
             setDrag({
-                x: 1 - x,
+                x,
                 y,
             });
         },
@@ -114,14 +119,18 @@ function showDrag({
         return () => document.body.style.removeProperty("touch-action");
     }, []);
 
+    const toggle = () => setShow((show) => !show);
+
     return (
-        <host shadowDom dragging={dragging} ready={!!rect}>
+        <host shadowDom dragging={dragging} ready={!!rect} toggle={toggle}>
             <div class="drag" ref={refActionable}>
                 <div class="drag-visible">
                     <slot name="drag-visible"></slot>
                 </div>
                 <div class="drag-banner">
-                    <slot name="drag-start">1</slot>
+                    <div>
+                        <slot name="drag-start"></slot>
+                    </div>
                     <button
                         class="drag-actionable"
                         ondblclick={() => setShow((show) => !show)}
@@ -135,7 +144,9 @@ function showDrag({
                             <div class="drag-icon"></div>
                         </slot>
                     </button>
-                    <slot name="drag-end">2</slot>
+                    <div>
+                        <slot name="drag-end"></slot>
+                    </div>
                 </div>
             </div>
             <div class="content" ref={refContent}>
@@ -145,8 +156,8 @@ function showDrag({
                 {`:host{
                     --offset-x: ${offset.x}px;
                     --offset-y: ${offset.y}px;
-                    --drag-x: ${(1 - drag.x) * -1};
-                    --drag-y: ${(1 - drag.y) * -1};
+                    --drag-x: ${drag.x};
+                    --drag-y: ${drag.y};
                     --move-x: ${rect?.width || 0}px;
                     --move-y: ${rect?.height || 0}px;
                 }`}
@@ -213,6 +224,7 @@ showDrag.styles = css`
         top: 0;
         --transform: calc((-100%) + var(--drag-width));
     }
+
     :host([position="bottom"]) {
         left: 0;
         bottom: 0;
@@ -233,14 +245,23 @@ showDrag.styles = css`
     }
 
     :host([dragging][position="left"]) {
-        --transform: calc((var(--move-x) * var(--drag-x))), 0px;
+        --transform: calc(
+                (var(--move-x) - (var(--move-x) * var(--drag-x))) * -1
+            ),
+            0px;
+    }
+    :host([show][dragging][position="left"]) {
+        --transform: calc((var(--move-x) * var(--drag-x)) * -1), 0px;
     }
     :host([ready][position="bottom"]) {
         width: 100%;
         --transform: 0, calc(var(--move-y) * 1);
     }
     :host([dragging][position="bottom"]) {
-        --transform: 0px, calc(var(--move-y) * (var(--drag-y) * -1));
+        --transform: 0px, calc(var(--move-y) - (var(--move-y) * var(--drag-y)));
+    }
+    :host([show][dragging][position="bottom"]) {
+        --transform: 0px, calc(var(--move-y) * var(--drag-y));
     }
 
     :host([position="bottom"]) .drag-icon {
