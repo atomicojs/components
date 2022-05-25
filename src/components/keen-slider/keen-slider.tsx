@@ -8,7 +8,7 @@ import {
     useProp,
     useState,
 } from "atomico";
-import Keen, { KeenSliderInstance } from "keen-slider";
+import Keen, { KeenSliderInstance, KeenSliderOptions } from "keen-slider";
 import { useProxySlot } from "@atomico/hooks/use-slot";
 import style from "./keen-slider.css";
 import { useResponsiveState } from "@atomico/hooks/use-responsive-state";
@@ -25,7 +25,7 @@ function component(props: Props<typeof component>): Host<{
     const slotSlides = useProxySlot<HTMLElement>(refSlides);
 
     const slidesPerView = useResponsiveState(props.slidesPerView || "");
-    const slidesSpacing = useResponsiveState(props.slidesPerView || "");
+    const slidesSpacing = useResponsiveState(props.slidesSpacing || "");
     const slidesOrigin = useResponsiveState(props.slidesOrigin || "");
 
     const next = () => slider.next();
@@ -50,7 +50,7 @@ function component(props: Props<typeof component>): Host<{
     useEffect(() => {
         if (!slotSlides.length) return;
 
-        const slider = new Keen(refRoot.current, {
+        const init: KeenSliderOptions = {
             loop: props.loop,
             drag: props.drag,
             disabled: props.disabled,
@@ -58,13 +58,27 @@ function component(props: Props<typeof component>): Host<{
             rubberband: props.rubberband,
             initial: props.initial,
             mode: props.mode,
-            vertical: !!props.vertical,
+            vertical: props.vertical,
             slides: {
-                perView: slidesPerView,
-                spacing: slidesSpacing,
-                origin: slidesOrigin,
+                perView:
+                    slidesPerView === "auto"
+                        ? slidesPerView
+                        : Number(slidesPerView),
+                spacing: Number(slidesSpacing),
+                origin:
+                    slidesOrigin === "auto" || slidesOrigin === "center"
+                        ? slidesOrigin
+                        : Number(slidesOrigin),
             },
-        });
+        };
+        // clean empty props
+        for (let prop in init) {
+            if (init[prop] == null) {
+                delete init[prop];
+            }
+        }
+
+        const slider = new Keen(refRoot.current, init);
 
         setSlider(slider);
 
