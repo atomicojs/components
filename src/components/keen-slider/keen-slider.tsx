@@ -61,8 +61,8 @@ function component(props: Props<typeof component>): Host<{
             vertical: !!props.vertical,
             slides: {
                 perView: slidesPerView,
-                // spacing: slidesSpacing,
-                // origin: slidesOrigin,
+                spacing: slidesSpacing,
+                origin: slidesOrigin,
             },
         });
 
