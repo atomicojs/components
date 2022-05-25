@@ -1,4 +1,13 @@
-import { Type, Host, Props, c, useRef, useEffect, useProp } from "atomico";
+import {
+    Type,
+    Host,
+    Props,
+    c,
+    useRef,
+    useEffect,
+    useProp,
+    useState,
+} from "atomico";
 import Keen, { KeenSliderInstance } from "keen-slider";
 import { useProxySlot } from "@atomico/hooks/use-slot";
 import style from "./keen-slider.css";
@@ -10,6 +19,7 @@ function component(props: Props<typeof component>): Host<{
     prev: () => void;
 }> {
     const [slider, setSlider] = useProp<KeenSliderInstance>("slider");
+    const [lastInteraction, setLastInteraction] = useState<number>();
     const refRoot = useRef();
     const refSlides = useRef();
     const slotSlides = useProxySlot<HTMLElement>(refSlides);
@@ -18,8 +28,28 @@ function component(props: Props<typeof component>): Host<{
     const slidesSpacing = useResponsiveState(props.slidesPerView || "");
     const slidesOrigin = useResponsiveState(props.slidesOrigin || "");
 
+    const next = () => slider.next();
+
+    const prev = () => slider.prev();
+
+    useEffect(() => {
+        if (!slider || !props.autoplay) return;
+
+        if (!lastInteraction) {
+            const interval = setInterval(() => next(), props.autoplayLoop);
+            return () => clearInterval(interval);
+        } else {
+            const interval = setTimeout(
+                () => setLastInteraction(0),
+                props.autoplayLoop
+            );
+            return () => clearTimeout(interval);
+        }
+    }, [slider, lastInteraction, props.autoplay, props.autoplayLoop]);
+
     useEffect(() => {
         if (!slotSlides.length) return;
+
         const slider = new Keen(refRoot.current, {
             loop: props.loop,
             drag: props.drag,
@@ -31,7 +61,7 @@ function component(props: Props<typeof component>): Host<{
             vertical: !!props.vertical,
             slides: {
                 perView: slidesPerView,
-                spacing: slidesSpacing,
+                // spacing: slidesSpacing,
                 // origin: slidesOrigin,
             },
         });
@@ -41,12 +71,13 @@ function component(props: Props<typeof component>): Host<{
         return () => slider.destroy();
     }, [slotSlides.length, slidesPerView, slidesSpacing, slidesOrigin]);
 
-    const next = () => slider.next();
-
-    const prev = () => slider.prev();
-
     return (
-        <host shadowDom next={next} prev={prev}>
+        <host
+            shadowDom
+            next={next}
+            prev={prev}
+            onclick={(event) => setLastInteraction(event.timeStamp)}
+        >
             <slot ref={refSlides} name="slide"></slot>
             <slot onclick={prev} name="to-left"></slot>
             <slot onclick={next} name="to-right"></slot>
@@ -72,6 +103,11 @@ component.props = {
     vertical: Boolean,
     rtl: Boolean,
     rubberband: Boolean,
+    autoplay: Boolean,
+    autoplayLoop: {
+        type: Number,
+        value: 2000,
+    },
     initial: Number,
     mode: {
         type: String,
@@ -80,6 +116,7 @@ component.props = {
     slidesPerView: String,
     slidesSpacing: String,
     slidesOrigin: String,
+
     slider: {
         type: null as Type<KeenSliderInstance>,
         event: {
