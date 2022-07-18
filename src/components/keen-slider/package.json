@@ -10,30 +10,15 @@
   "peerDependencies": {
     "keen-slider": "latest",
     "atomico": "latest",
-    "@atomico/hooks": "latest"
+    "@atomico/hooks": "latest",
+    "@atomico/react": "latest"
+  },
+  "peerDependenciesMeta": {
+    "@atomico/react": {
+      "optional": true
+    }
   },
   "scripts": {
     "npm": "exports src/*.tsx --types --exports --minify  --analyzer"
-  },
-  "module": "./dist/keen-slider.js",
-  "exports": {
-    "./keen-slider": "./dist/keen-slider.js",
-    ".": "./dist/keen-slider.js",
-    "./preact": "./dist/keen-slider.preact.js",
-    "./react": "./dist/keen-slider.react.js"
-  },
-  "types": "types/keen-slider.d.ts",
-  "typesVersions": {
-    "*": {
-      "keen-slider": [
-        "./types/keen-slider.d.ts"
-      ],
-      "preact": [
-        "./types/keen-slider.preact.d.ts"
-      ],
-      "react": [
-        "./types/keen-slider.react.d.ts"
-      ]
-    }
   }
 }

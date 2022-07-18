@@ -9,7 +9,7 @@ import {
     useState,
     Host,
 } from "atomico";
-import { useDrag, useGesture } from "./hooks";
+import { useDrag, useGesture } from "../hooks";
 import { useDebounceState } from "@atomico/hooks/use-debounce-state";
 import { getCoordinates } from "@atomico/hooks/use-click-coordinates";
 import { useResizeObserverState } from "@atomico/hooks/use-resize-observer";
