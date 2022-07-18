@@ -13,6 +13,6 @@
     "@atomico/hooks": "latest"
   },
   "scripts": {
-    "npm": "exports src/*.tsx --types --exports --minify --publish"
+    "npm": "exports src/*.tsx --types --exports --minify  --analyzer"
   }
 }
