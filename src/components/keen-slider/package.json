@@ -22,6 +22,6 @@
     }
   },
   "scripts": {
-    "npm": "exports src/*.tsx --types --exports --minify  --analyzer --publish"
+    "component:publish": "exports src/*.tsx --types --exports --minify  --analyzer --publish"
   }
 }
