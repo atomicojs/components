@@ -1,9 +1,18 @@
 {
+  "name": "@atomico/keen-slide",
+  "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "keen-slider": "latest"
+    "keen-slider": "latest",
+    "atomico": "latest",
+    "@atomico/hooks": "latest"
   },
   "peerDependencies": {
-    "keen-slider": "latest"
+    "keen-slider": "latest",
+    "atomico": "latest",
+    "@atomico/hooks": "latest"
+  },
+  "scripts": {
+    "npm": "exports src/*.tsx --types --exports --minify --publish"
   }
 }
