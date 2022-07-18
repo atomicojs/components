@@ -2,6 +2,9 @@
   "name": "@atomico/keen-slide",
   "version": "1.0.0",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "keen-slider": "latest",
     "atomico": "latest",
