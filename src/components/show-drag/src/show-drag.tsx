@@ -199,7 +199,7 @@ showDrag.props = {
 };
 
 showDrag.styles = css`
-    @tokens "./tokens.yaml" (prefix: show-drag);
+    @tokens "../tokens.yaml" (prefix: show-drag);
 
     :host {
         --content-order: -1;
