@@ -20,6 +20,6 @@
     }
   },
   "scripts": {
-    "npm": "exports src/*.tsx --types --exports --minify  --analyzer"
+    "npm": "exports src/*.tsx --types --exports --minify  --analyzer --publish"
   }
 }
