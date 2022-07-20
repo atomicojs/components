@@ -28,7 +28,8 @@
     "test": "vitest ",
     "exports": "exports src/components/**/*.tsx !src/components/**/preview.tsx --types --exports --analyzer",
     "prepublishOnly": "npm run exports",
-    "components:publish": "npm run component:publish -w=src/components"
+    "components:publish": "npm run component:publish -w=src/components",
+    "components:create": "scaff templates/component src/components"
   },
   "dependencies": {
     "@atomico/hooks": "^3.45.0",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@atomico/exports": "^0.35.1",
     "@atomico/postcss-tokens": "^1.4.4",
+    "@atomico/scaffold": "^0.2.0",
     "@atomico/tsconfig": "^1.0.0",
     "@atomico/vite": "^1.5.1",
     "typescript": "^4.7.4",
