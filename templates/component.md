@@ -84,7 +84,7 @@ node_modules
 
 ## index.html
 
-```html
+```html {%name|kebabCase%}/index.html
 <link rel="stylesheet" href="../../preview.css" />
 <script type="module" src="./src/{%name|kebabCase%}.tsx"></script>
 <atomico-{%name|kebabCase%}></atomico-{%name|kebabCase%}>
@@ -92,7 +92,7 @@ node_modules
 
 ## preview
 
-```js
+```js {%name|kebabCase%}/preview.html
 export default {
     label: "{%name%}",
     path: "/{%name|kebabCase%}",
