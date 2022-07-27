@@ -151,6 +151,4 @@ componentLottie.styles = css`
     }
 `;
 
-const Lottie = c(componentLottie);
-
-customElements.define("atomico-lottie", Lottie);
+export const Lottie = c(componentLottie);

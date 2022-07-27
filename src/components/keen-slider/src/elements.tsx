@@ -143,4 +143,4 @@ component.styles = style;
 
 export const KeenSlider = c(component);
 
-customElements.define("atomico-keen-slider", KeenSlider);
+
