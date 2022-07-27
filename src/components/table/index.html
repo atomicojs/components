@@ -1,0 +1,180 @@
+<link rel="stylesheet" href="../../preview.css" />
+<script type="module" src="./src/define.ts"></script>
+<script src="https://unpkg.com/dollars.js"></script>
+<style>
+    section {
+        padding: 50px 10%;
+        box-sizing: border-box;
+    }
+    .button {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 100px;
+        font-size: 12px;
+        padding: 2.5px 10px;
+        display: inline-flex;
+        color: unset;
+        text-decoration: none;
+    }
+    .avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        object-fit: cover;
+    }
+</style>
+<section>
+    <style>
+        #table-eg-1 {
+            font-size: 14px;
+            --table--row-gap: 10px;
+            --table--row-radius: 5px;
+            --table--row-background: white;
+            --table--row-header-background: transparent;
+            --table--cell-header-padding: 0px 10px;
+        }
+        #table-eg-1 [slot="header"] {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+    <table-box breakpoint="(max-width: 520px)" id="table-eg-1">
+        <table-tr slot="header">
+            <table-td>Author</table-td>
+            <table-td>Avatar</table-td>
+            <table-td>Description</table-td>
+            <table-td>Place of birth</table-td>
+            <table-td>Link</table-td>
+        </table-tr>
+        <template $each="list">
+            <table-tr>
+                <table-td $text="loop.person"></table-td>
+                <table-td>
+                    <img
+                        class="avatar"
+                        width="30"
+                        height="30"
+                        loading="lazy"
+                        $set-src="loop.imgUrl"
+                    />
+                </table-td>
+                <table-td $text="loop.description"></table-td>
+                <table-td $text="loop.placeOfBirth"></table-td>
+                <table-td>
+                    <a class="button" $set-href="loop.sourceUrl">Wiki</a>
+                </table-td>
+            </table-tr>
+        </template>
+    </table-box>
+</section>
+
+<section>
+    <style>
+        #table-eg-2 {
+            font-size: 14px;
+            --table--radius: 5px;
+            --table--border: 1px solid black;
+            --table--row-header-background: #fff;
+            --table--row-header-radius: 5px 5px 0px 0px;
+        }
+        #table-eg-2 [slot="header"] {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+    <table-box breakpoint="(max-width: 520px)" id="table-eg-2">
+        <table-tr slot="header">
+            <table-td>Author</table-td>
+            <table-td>Avatar</table-td>
+            <table-td>Description</table-td>
+            <table-td>Place of birth</table-td>
+            <table-td>Link</table-td>
+        </table-tr>
+        <template $each="list">
+            <table-tr>
+                <table-td $text="loop.person"></table-td>
+                <table-td>
+                    <img
+                        class="avatar"
+                        width="30"
+                        height="30"
+                        loading="lazy"
+                        $set-src="loop.imgUrl"
+                    />
+                </table-td>
+                <table-td $text="loop.description">Cell 1.2</table-td>
+                <table-td $text="loop.placeOfBirth">Cell 1.3</table-td>
+                <table-td>
+                    <a class="button" $set-href="loop.sourceUrl">Wiki</a>
+                </table-td>
+            </table-tr>
+        </template>
+    </table-box>
+</section>
+
+<section>
+    <style>
+        #table-eg-3 {
+            font-size: 14px;
+            --my-radius: 5px;
+            --table--row-background: white;
+            --table--row-header-radius: var(--my-radius) var(--my-radius) 0px
+                0px;
+            --table--row-last-radius: 0px 0px var(--my-radius) var(--my-radius);
+            --table--cell-padding: 10px 20px;
+        }
+        #table-eg-3 [slot="header"] {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        #table-eg-3[collapse] {
+            --table--row-header-radius: var(--my-radius);
+            --table--row-last-radius: var(--my-radius);
+            --table--row-radius: var(--my-radius);
+            --table--row-gap: 10px;
+        }
+    </style>
+    <table-box breakpoint="(max-width: 520px)" id="table-eg-3">
+        <table-tr slot="header">
+            <table-td>Author</table-td>
+            <table-td>Avatar</table-td>
+            <table-td>Description</table-td>
+            <table-td>Place of birth</table-td>
+            <table-td>Link</table-td>
+        </table-tr>
+        <template $each="list">
+            <table-tr>
+                <table-td $text="loop.person"></table-td>
+                <table-td>
+                    <img
+                        class="avatar"
+                        width="30"
+                        height="30"
+                        loading="lazy"
+                        $set-src="loop.imgUrl"
+                    />
+                </table-td>
+                <table-td $text="loop.description">Cell 1.2</table-td>
+                <table-td $text="loop.placeOfBirth">Cell 1.3</table-td>
+                <table-td>
+                    <a class="button" $set-href="loop.sourceUrl">Wiki</a>
+                </table-td>
+            </table-tr>
+        </template>
+    </table-box>
+</section>
+
+<script>
+    const state = $$({ list: [] });
+    state.then(async ($) => {
+        const list = await fetch(
+            "https://example-data.draftbit.com/authors?_limit=10"
+        ).then((res) => res.json());
+        $.list = list;
+    });
+</script>

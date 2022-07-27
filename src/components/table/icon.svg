@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <g id="icon" transform="translate(-40 -100)">
+    <rect id="Rectangle_231" data-name="Rectangle 231" width="28" height="28" rx="8" transform="translate(40 100)" fill="#08f" opacity="0"/>
+    <g id="Group_203" data-name="Group 203">
+      <path id="Union_1" data-name="Union 1" d="M-6774.5-994v-3h-4v3h-1v-3h-4.5v-1h4.5v-2.5h-4.5v-1h4.5v-2.5h1v2.5h4v-2.5h1v2.5h4.5v1h-4.5v2.5h4.5v1h-4.5v3Zm0-4v-2.5h-4v2.5Z" transform="translate(6830.5 1113)" fill="#03000c"/>
+      <g id="Rectangle_232" data-name="Rectangle 232" transform="translate(46 108)" fill="none" stroke="#03000c" stroke-width="1">
+        <rect width="16" height="11.5" rx="2" stroke="none"/>
+        <rect x="0.5" y="0.5" width="15" height="10.5" rx="1.5" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>

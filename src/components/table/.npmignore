@@ -1,0 +1,5 @@
+node_modules
+/icon.svg
+/preview.js
+/index.html
+/tsconfig.json

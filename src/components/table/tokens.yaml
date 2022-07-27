@@ -1,0 +1,21 @@
+radius: 0px
+background: transparent
+border:
+  "": 0px solid transparent
+  split: "$border"
+row:
+  gap: 0px
+  radius: 0px
+  shadow: transparent
+  background: transparent
+  header:
+    radius: "$row.radius"
+    shadow: "$row.shadow"
+    background: "$row.background"
+  last:
+    radius: "$row.radius"
+cell:
+  align: middle
+  padding: 10px
+  header:
+    padding: $cell.padding
