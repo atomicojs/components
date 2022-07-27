@@ -210,4 +210,3 @@ modal.styles = css`
 
 export const Modal = c(modal);
 
-customElements.define("atomico-modal", Modal);
