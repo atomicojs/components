@@ -70,9 +70,6 @@ function component(props: Props<typeof component>): Host<{
                         ? slidesOrigin
                         : Number(slidesOrigin),
             },
-            slideChanged(slide) {
-                console.log(slide.track.details.rel);
-            },
         };
         // clean empty props
         for (let prop in init) {
