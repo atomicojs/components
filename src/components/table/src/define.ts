@@ -1,5 +1,5 @@
-import { Table, Tr, Td } from "./table";
-export { Table, Tr, Td } from "./table";
+import { Table, Tr, Td } from "./elements";
+export { Table, Tr, Td } from "./elements";
 
 customElements.define("table-box", Table);
 customElements.define("table-tr", Tr);
