@@ -20,6 +20,6 @@
     }
   },
   "scripts": {
-    "component:publish": "exports src/{define,table}.ts --types --exports --minify  --analyzer --publish --main define"
+    "component:publish": "exports src/{define,elements}.{ts,tsx} --types --exports --minify --publish --analyzer --main define"
   }
 }
