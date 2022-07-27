@@ -92,7 +92,7 @@ node_modules
 
 ## preview
 
-```js {%name|kebabCase%}/preview.html
+```js {%name|kebabCase%}/preview.js
 export default {
     label: "{%name%}",
     path: "/{%name|kebabCase%}",
