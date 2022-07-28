@@ -1,5 +1,6 @@
 {
   "name": "@atomico/table",
+  "description": "Webcomponent built with Atomico JS, Simple to use and customize table. Includes additional support for React and Preact.",
   "version": "1.0.1",
   "type": "module",
   "publishConfig": {
@@ -21,5 +22,9 @@
   },
   "scripts": {
     "component:publish": "exports src/{define,elements}.{ts,tsx} --types --exports --minify --publish --analyzer --main define"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/atomicojs/components/issues"
+  },
+  "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components/table"
 }
