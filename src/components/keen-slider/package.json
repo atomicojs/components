@@ -23,7 +23,7 @@
     }
   },
   "scripts": {
-    "component:publish": "exports src/{define,elements}.{ts,tsx} --types --exports --minify --publish --analyzer --main define --watch"
+    "component:publish": "exports src/{define,elements}.{ts,tsx} --types --exports --minify --publish --analyzer --main define"
   },
   "bugs": {
     "url": "https://github.com/atomicojs/components/issues"
