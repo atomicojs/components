@@ -1,7 +1,7 @@
 {
   "name": "@atomico/lottie",
   "description": "Webcomponent built with Atomico JS to use lottie as webcomponent. Includes additional support for React and Preact.",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "type": "module",
   "publishConfig": {
     "access": "public"
