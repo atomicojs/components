@@ -1,7 +1,7 @@
 {
   "name": "@atomico/keen-slider",
   "description": "Webcomponent built with Atomico JS to use keen-slider as webcomponent. Includes additional support for React and Preact.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -23,7 +23,7 @@
     }
   },
   "scripts": {
-    "component:publish": "exports src/{define,elements}.{ts,tsx} --types --exports --minify --publish --analyzer --main define"
+    "component:publish": "exports src/{define,elements}.{ts,tsx} --types --exports --minify --publish --analyzer --main define --watch"
   },
   "bugs": {
     "url": "https://github.com/atomicojs/components/issues"

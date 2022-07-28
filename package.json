@@ -37,7 +37,7 @@
     "atomico": "^1.61.0"
   },
   "devDependencies": {
-    "@atomico/exports": "^0.35.1",
+    "@atomico/exports": "^0.35.2",
     "@atomico/postcss-tokens": "^1.4.4",
     "@atomico/scaffold": "^0.2.0",
     "@atomico/tsconfig": "^1.0.0",
