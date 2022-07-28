@@ -4,4 +4,6 @@
 
 **Webcomponent** built with [Atomico JS](https://atomicojs.dev), Simple to use and customize modal. Includes additional support for React and Preact.
 
+![Preview](https://github.com/atomicojs/components/blob/master/src/components/modal/preview.gif?raw=true)
+
 Documentation in [atomico.gitbook.io/doc/atomico/atomico-components/modal](https://atomico.gitbook.io/doc/atomico/atomico-components/modal).

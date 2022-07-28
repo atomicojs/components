@@ -4,6 +4,8 @@
 
 **Webcomponent** built with [Atomico JS](https://atomicojs.dev) to use lottie as webcomponent. Includes additional support for React and Preact.
 
+![Preview](https://github.com/atomicojs/components/blob/master/src/components/lottie/preview.gif?raw=true)
+
 **Differences with lottie file**
 
 1. Faster and smaller

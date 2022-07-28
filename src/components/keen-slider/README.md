@@ -4,4 +4,6 @@
 
 **Webcomponent** built with [Atomico JS](https://atomicojs.dev) to use keen-slider as webcomponent. Includes additional support for React and Preact.
 
+![Preview](https://github.com/atomicojs/components/blob/master/src/components/keen-slider/preview.gif?raw=true)
+
 Documentation in [atomico.gitbook.io/doc/atomico/atomico-components/keen-slider](https://atomico.gitbook.io/doc/atomico/atomico-components/keen-slider).
