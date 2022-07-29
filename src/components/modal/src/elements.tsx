@@ -22,8 +22,9 @@ function modal({
     lazyload,
 }: Props<typeof modal>): Host<{
     onChangeShow: Event;
+    open: () => void;
+    closed: () => void;
     toggle: () => void;
-    show: () => void;
 }> {
     const host = useHost();
     const [show, setShow] = useProp<boolean>("show");
@@ -209,4 +210,3 @@ modal.styles = css`
 `;
 
 export const Modal = c(modal);
-
