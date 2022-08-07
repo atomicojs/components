@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <g id="icon" transform="translate(-40 -100)">
+    <g id="Group_204" data-name="Group 204" transform="translate(40 100)">
+      <rect id="Rectangle_238" data-name="Rectangle 238" width="28" height="28" rx="8" fill="#08f" opacity="0"/>
+    </g>
+    <line id="Line_1" data-name="Line 1" y1="10" transform="translate(54 108.5)" fill="none" stroke="#03000c" stroke-linecap="round" stroke-width="0.5" stroke-dasharray="0 1"/>
+    <g id="Rectangle_239" data-name="Rectangle 239" transform="translate(46 108)" fill="none" stroke="#03000c" stroke-width="1">
+      <rect width="16" height="11.2" rx="2" stroke="none"/>
+      <rect x="0.5" y="0.5" width="15" height="10.2" rx="1.5" fill="none"/>
+    </g>
+    <path id="Path_291" data-name="Path 291" d="M2,0,4,2H0Z" transform="translate(58 111.5) rotate(90)" fill="#03000c"/>
+    <path id="Path_292" data-name="Path 292" d="M2,2,4,0H0Z" transform="translate(52 111.5) rotate(90)" fill="#03000c"/>
+  </g>
+</svg>

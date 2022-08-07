@@ -1,0 +1,25 @@
+{
+        "name": "@atomico/compare-content",
+        "version": "1.0.0",
+        "type": "module",
+        "publishConfig": {
+                "access": "public"
+        },
+        "dependencies": {
+                "atomico": "latest",
+                "@atomico/hooks": "latest"
+        },
+        "peerDependencies": {
+                "atomico": "latest",
+                "@atomico/hooks": "latest",
+                "@atomico/react": "latest"
+        },
+        "peerDependenciesMeta": {
+                "@atomico/react": {
+                    "optional": true
+                }
+        },
+        "scripts": {
+                "component:publish": "exports src/*.tsx --types --exports --minify  --analyzer --publish"
+        }
+}

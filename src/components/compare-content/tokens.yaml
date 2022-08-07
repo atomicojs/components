@@ -1,0 +1,8 @@
+line:
+  width: 1px
+icon:
+  box:
+    size: 2rem
+    fill: "#fff"
+    radius: 100%
+  fill: "#000"
