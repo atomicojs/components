@@ -63,7 +63,7 @@ customElements.define("atomico-{%name|kebabCase%}", {%name|pascalCase%});
         }
     },
     "scripts": {
-        "component:publish": "exports src/*.tsx --types --exports --minify  --analyzer --publish"
+        "component:publish": "exports src/{define,elements}.{ts,tsx} --types --exports --minify --publish --analyzer --main define"
     }
 }
 ```
