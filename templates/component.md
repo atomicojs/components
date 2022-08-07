@@ -7,7 +7,7 @@
 
 ## component
 
-```jsx {%name|kebabCase%}/src/{%name|kebabCase%}.tsx
+```jsx {%name|kebabCase%}/src/elements.tsx
 import { c, css } from "atomico";
 
 function {%name|camelCase%}() {
@@ -29,6 +29,11 @@ function {%name|camelCase%}() {
 `;
 
 export const {%name|pascalCase%} = c({%name|camelCase%});
+```
+
+```jsx {%name|kebabCase%}/src/define.tsx
+import { {%name|pascalCase%} } from "./elements";
+export { {%name|pascalCase%} } from "./elements";
 
 customElements.define("atomico-{%name|kebabCase%}", {%name|pascalCase%});
 ```
@@ -86,7 +91,7 @@ node_modules
 
 ```html {%name|kebabCase%}/index.html
 <link rel="stylesheet" href="../../preview.css" />
-<script type="module" src="./src/{%name|kebabCase%}.tsx"></script>
+<script type="module" src="./src/define.tsx"></script>
 <atomico-{%name|kebabCase%}></atomico-{%name|kebabCase%}>
 ```
 
