@@ -7,33 +7,36 @@ function compareContent({ value, vertical }: Props<typeof compareContent>) {
     const refDrag = useRef();
     const slots = useProxySlot<HTMLElement>(ref);
     const [, x, y] = useDragResize(refDrag, [value, value]);
+    let v = vertical ? y : x;
+    v = v > 1 ? 1 : v < 0 ? 0 : v;
     return (
         <host shadowDom>
             <slot name="content" ref={ref}></slot>
-            <div class="mask" style={`--v:${vertical ? y : x};`}>
+            <div class="mask">
                 {slots.map((child, i) => (
                     <div class={i ? "last" : "first"} staticNode>
                         <slot name={(child.slot = `content-${i}`)} />
                     </div>
                 ))}
-                <button class="drag" ref={refDrag} staticNode>
-                    <div class="drag-icon" part="icon">
-                        <slot name="icon">
-                            <svg
-                                width="12.001"
-                                height="7.999"
-                                viewBox="0 0 12.001 7.999"
-                            >
-                                <path
-                                    d="M-6775-1004l4,4-4,4Zm-8,4,4-4v8Z"
-                                    transform="translate(6783.001 1004)"
-                                    fill="var(--icon-fill)"
-                                />
-                            </svg>
-                        </slot>
-                    </div>
-                </button>
             </div>
+            <button class="drag" ref={refDrag} staticNode>
+                <div class="drag-icon" part="icon">
+                    <slot name="icon">
+                        <svg
+                            width="12.001"
+                            height="7.999"
+                            viewBox="0 0 12.001 7.999"
+                        >
+                            <path
+                                d="M-6775-1004l4,4-4,4Zm-8,4,4-4v8Z"
+                                transform="translate(6783.001 1004)"
+                                fill="var(--icon-fill)"
+                            />
+                        </svg>
+                    </slot>
+                </div>
+            </button>
+            <style>{`:host{--v:${v} !important;}`}</style>
         </host>
     );
 }
@@ -48,17 +51,24 @@ compareContent.styles = css`
 
     :host {
         display: inline-block;
-        overflow: hidden;
+        position: relative;
         --v: 0.5;
         --cursor: col-resize;
         --icon-rotate: 0deg;
+        --percent: calc(100% * var(--v));
     }
     .mask {
         position: relative;
-        --percent: calc(100% * var(--v));
+        overflow: hidden;
     }
     .first {
         position: relative;
+        clip-path: polygon(
+            0% 0%,
+            var(--percent) 0%,
+            var(--percent) 100%,
+            0% 100%
+        );
     }
     .last {
         width: 100%;
@@ -72,6 +82,7 @@ compareContent.styles = css`
             var(--percent) 100%
         );
     }
+
     .drag {
         all: unset;
         position: absolute;
@@ -110,7 +121,6 @@ compareContent.styles = css`
         top: var(--percent);
         transform: translateY(-50%);
     }
-
     :host([vertical]) .last {
         clip-path: polygon(
             0% var(--percent),
@@ -119,8 +129,17 @@ compareContent.styles = css`
             0% 100%
         );
     }
+    :host([vertical]) .first {
+        clip-path: polygon(
+            0% 0%,
+            100% 0%,
+            100% var(--percent),
+            0% var(--percent)
+        );
+    }
     ::slotted(img) {
         pointer-events: none;
+        display: block;
     }
     ::slotted(*) {
         max-width: 100%;
