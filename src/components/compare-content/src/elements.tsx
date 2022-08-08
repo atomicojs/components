@@ -121,7 +121,7 @@ compareContent.styles = css`
     ::slotted(img) {
         pointer-events: none;
     }
-    ::slotted([slot="content"]) {
+    ::slotted(*) {
         max-width: 100%;
     }
 `;

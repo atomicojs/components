@@ -1,7 +1,7 @@
 {
   "name": "@atomico/components",
   "description": "Generic and utility webcomponents created with Atomico",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "type": "module",
   "workspaces": [
     "src/**/*"
