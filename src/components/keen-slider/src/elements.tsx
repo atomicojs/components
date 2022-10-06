@@ -15,11 +15,13 @@ import { useResponsiveState } from "@atomico/hooks/use-responsive-state";
 
 function component(props: Props<typeof component>): Host<{
     onCreateSlider: Event;
+    onChange: Event;
     next: () => void;
     prev: () => void;
+    to: (slide: number) => void;
 }> {
     const [slider, setSlider] = useProp<KeenSliderInstance>("slider");
-    const [lastInteraction, setLastInteraction] = useState<number>();
+    const [lastInteraction, setLastInteraction] = useState<boolean>();
     const refRoot = useRef();
     const refSlides = useRef();
     const slotSlides = useProxySlot<HTMLElement>(refSlides);
@@ -28,9 +30,18 @@ function component(props: Props<typeof component>): Host<{
     const slidesSpacing = useResponsiveState(props.slidesSpacing || "");
     const slidesOrigin = useResponsiveState(props.slidesOrigin || "");
 
+    const [currentSlide, setCurrentSlide] = useProp("currentSlide");
+
     const next = () => slider.next();
 
     const prev = () => slider.prev();
+
+    const to = (value: number) => {
+        if (slider && slider.track.details.rel != value) {
+            slider.moveToIdx(value);
+            setLastInteraction(true);
+        }
+    };
 
     useEffect(() => {
         if (!slider || !props.autoplay) return;
@@ -40,7 +51,7 @@ function component(props: Props<typeof component>): Host<{
             return () => clearInterval(interval);
         } else {
             const interval = setTimeout(
-                () => setLastInteraction(0),
+                () => setLastInteraction(false),
                 props.autoplayLoop
             );
             return () => clearTimeout(interval);
@@ -82,15 +93,26 @@ function component(props: Props<typeof component>): Host<{
 
         setSlider(slider);
 
+        setCurrentSlide(props.initial || 0);
+
+        slider.on("slideChanged", () => {
+            setCurrentSlide(slider.track.details.rel);
+        });
+
         return () => slider.destroy();
     }, [slotSlides.length, slidesPerView, slidesSpacing, slidesOrigin]);
+
+    useEffect(() => {
+        to(currentSlide);
+    }, [currentSlide]);
 
     return (
         <host
             shadowDom
             next={next}
             prev={prev}
-            onclick={(event) => setLastInteraction(event.timeStamp)}
+            to={to}
+            onclick={(event) => setLastInteraction(true)}
         >
             <slot ref={refSlides} name="slide"></slot>
             <slot onclick={prev} name="to-left"></slot>
@@ -99,6 +121,15 @@ function component(props: Props<typeof component>): Host<{
                 {slotSlides.map((element, id) => {
                     const name = `slide-${id}`;
                     element.slot = name;
+                    if (id === currentSlide) {
+                        element.dataset.slide = "current";
+                    } else if (id === currentSlide + 1) {
+                        element.dataset.slide = "next";
+                    } else if (id === currentSlide - 1) {
+                        element.dataset.slide = "prev";
+                    } else {
+                        delete element.dataset.slide;
+                    }
                     return (
                         <div class="keen-slider__slide">
                             <slot name={name}></slot>
@@ -123,6 +154,10 @@ component.props = {
         value: 2000,
     },
     initial: Number,
+    currentSlide: {
+        type: Number,
+        event: { type: "ChangeSlide" },
+    },
     mode: {
         type: String,
         value: (): "snap" | "free" | "free-snap" => "snap",
@@ -130,7 +165,6 @@ component.props = {
     slidesPerView: String,
     slidesSpacing: String,
     slidesOrigin: String,
-
     slider: {
         type: null as Type<KeenSliderInstance>,
         event: {
@@ -142,5 +176,3 @@ component.props = {
 component.styles = style;
 
 export const KeenSlider = c(component);
-
-
