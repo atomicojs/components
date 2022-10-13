@@ -14,8 +14,8 @@ import style from "./keen-slider.css";
 import { useResponsiveState } from "@atomico/hooks/use-responsive-state";
 
 function component(props: Props<typeof component>): Host<{
-    onCreateSlider: Event;
-    onChange: Event;
+    onCreated: Event;
+    onSlideChanged: Event;
     next: () => void;
     prev: () => void;
     to: (slide: number) => void;
@@ -112,7 +112,7 @@ function component(props: Props<typeof component>): Host<{
             next={next}
             prev={prev}
             to={to}
-            onclick={(event) => setLastInteraction(true)}
+            onclick={() => setLastInteraction(true)}
         >
             <slot ref={refSlides} name="slide"></slot>
             <slot onclick={prev} name="to-left"></slot>
@@ -156,7 +156,7 @@ component.props = {
     initial: Number,
     currentSlide: {
         type: Number,
-        event: { type: "ChangeSlide" },
+        event: { type: "SlideChanged" },
     },
     mode: {
         type: String,
@@ -168,7 +168,7 @@ component.props = {
     slider: {
         type: null as Type<KeenSliderInstance>,
         event: {
-            type: "CreateSlider",
+            type: "Created",
         },
     },
 };

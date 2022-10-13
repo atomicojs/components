@@ -58,3 +58,10 @@
     <button class="button" slot="to-left">←</button>
     <button class="button" slot="to-right">→</button>
 </atomico-keen-slider>
+
+<script>
+    const slider = document.querySelector("atomico-keen-slider");
+
+    slider.addEventListener("Created", console.log);
+    slider.addEventListener("SlideChanged", console.log);
+</script>
