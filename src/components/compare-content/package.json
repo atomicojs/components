@@ -1,18 +1,14 @@
 {
   "name": "@atomico/compare-content",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "type": "module",
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "atomico": "latest",
-    "@atomico/hooks": "latest"
-  },
   "peerDependencies": {
-    "atomico": "latest",
-    "@atomico/hooks": "latest",
-    "@atomico/react": "latest"
+    "atomico": "^1.66.0",
+    "@atomico/hooks": "*",
+    "@atomico/react": "*"
   },
   "peerDependenciesMeta": {
     "@atomico/react": {

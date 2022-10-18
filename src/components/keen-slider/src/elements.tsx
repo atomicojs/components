@@ -12,6 +12,8 @@ import Keen, { KeenSliderInstance, KeenSliderOptions } from "keen-slider";
 import { useProxySlot } from "@atomico/hooks/use-slot";
 import style from "./keen-slider.css";
 import { useResponsiveState } from "@atomico/hooks/use-responsive-state";
+import { useRender } from "@atomico/hooks/use-render";
+import { JSX } from "atomico";
 
 function component(props: Props<typeof component>): Host<{
     onCreated: Event;
@@ -22,9 +24,13 @@ function component(props: Props<typeof component>): Host<{
 }> {
     const [slider, setSlider] = useProp<KeenSliderInstance>("slider");
     const [lastInteraction, setLastInteraction] = useState<boolean>();
+
     const refRoot = useRef();
     const refSlides = useRef();
+    const refPagination = useRef();
     const slotSlides = useProxySlot<HTMLElement>(refSlides);
+    const [PaginationItemTemplate] =
+        useProxySlot<JSX<{ index: number; active: boolean }>>(refPagination);
 
     const slidesPerView = useResponsiveState(props.slidesPerView || "");
     const slidesSpacing = useResponsiveState(props.slidesSpacing || "");
@@ -32,9 +38,9 @@ function component(props: Props<typeof component>): Host<{
 
     const [currentSlide, setCurrentSlide] = useProp("currentSlide");
 
-    const next = () => slider.next();
+    const next = () => slider && slider.next();
 
-    const prev = () => slider.prev();
+    const prev = () => slider && slider.prev();
 
     const to = (value: number) => {
         if (slider && slider.track.details.rel != value) {
@@ -106,6 +112,23 @@ function component(props: Props<typeof component>): Host<{
         to(currentSlide);
     }, [currentSlide]);
 
+    useRender(
+        () =>
+            PaginationItemTemplate && (
+                <div slot="pagination-items">
+                    {slotSlides.map((slide, i) => (
+                        <PaginationItemTemplate
+                            index={i}
+                            active={currentSlide === i}
+                            onclick={() => to(i)}
+                            cloneNode
+                        ></PaginationItemTemplate>
+                    ))}
+                </div>
+            ),
+        [PaginationItemTemplate, currentSlide, to]
+    );
+
     return (
         <host
             shadowDom
@@ -117,6 +140,8 @@ function component(props: Props<typeof component>): Host<{
             <slot ref={refSlides} name="slide"></slot>
             <slot onclick={prev} name="to-left"></slot>
             <slot onclick={next} name="to-right"></slot>
+            <slot name="pagination" ref={refPagination}></slot>
+            <slot name="pagination-items"></slot>
             <div class="keen-slider" ref={refRoot}>
                 {slotSlides.map((element, id) => {
                     const name = `slide-${id}`;

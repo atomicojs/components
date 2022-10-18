@@ -1,20 +1,15 @@
 {
   "name": "@atomico/lottie",
   "description": "Webcomponent built with Atomico JS to use lottie as webcomponent. Includes additional support for React and Preact.",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "type": "module",
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "atomico": "latest",
-    "@atomico/hooks": "latest",
-    "lottie-web": "latest"
-  },
   "peerDependencies": {
-    "atomico": "latest",
-    "@atomico/hooks": "latest",
-    "@atomico/react": "latest",
+    "atomico": "^1.66.0",
+    "@atomico/hooks": "*",
+    "@atomico/react": "*",
     "lottie-web": "latest"
   },
   "peerDependenciesMeta": {

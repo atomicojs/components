@@ -35,6 +35,28 @@
     .button[slot="to-right"] {
         right: 1rem;
     }
+
+    [slot="pagination-items"] {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+    }
+    .dot {
+        all: unset;
+        color: white;
+        padding: 1rem;
+        cursor: pointer;
+        transition: 0.3s ease all;
+    }
+    .dot[active="false"] {
+        opacity: 0.5;
+    }
+    .dot[active="true"] {
+        opacity: 1;
+        scale: 1.5;
+    }
 </style>
 <atomico-keen-slider
     class="slider"
@@ -57,6 +79,7 @@
     </div>
     <button class="button" slot="to-left">←</button>
     <button class="button" slot="to-right">→</button>
+    <button class="dot" slot="pagination">●</button>
 </atomico-keen-slider>
 
 <script>

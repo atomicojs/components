@@ -1,6 +1,9 @@
 import { css } from "atomico";
 
 export default css`
+    :host {
+        position: relative;
+    }
     .keen-slider {
         max-height: 100%;
     }
@@ -33,5 +36,8 @@ export default css`
     }
     .keen-slider:not([data-keen-slider-disabled])[data-keen-slider-moves] * {
         pointer-events: none;
+    }
+    [name="pagination"] {
+        display: none;
     }
 `;
