@@ -17,7 +17,10 @@
     }
   },
   "scripts": {
-    "component:publish": "exports src/{define,elements}.{ts,tsx} --types --exports --minify --publish --analyzer --main define"
+    "step:types": "tsc",
+    "step:build": "library src/**/*",
+    "step:exports": "exports lib/**/* types/**/* --wrappers --main define --publish",
+    "prepublishOnly": "npm run step:types && npm run step:build && npm run step:exports"
   },
   "bugs": {
     "url": "https://github.com/atomicojs/components/issues"
