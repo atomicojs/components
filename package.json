@@ -40,7 +40,7 @@
     "@atomico/exports": "^1.2.5",
     "@atomico/postcss-tokens": "^1.4.4",
     "@atomico/scaffold": "^0.2.0",
-    "@atomico/tsconfig": "^1.0.0",
+    "@atomico/tsconfig": "^1.1.1",
     "@atomico/vite": "^2.3.0",
     "typescript": "^4.7.4",
     "vite": "^2.9.9",
