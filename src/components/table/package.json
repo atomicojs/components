@@ -1,7 +1,7 @@
 {
   "name": "@atomico/table",
   "description": "Webcomponent built with Atomico JS, Simple to use and customize table. Includes additional support for React and Preact.",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "module",
   "publishConfig": {
     "access": "public"

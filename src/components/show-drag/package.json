@@ -1,7 +1,7 @@
 {
   "name": "@atomico/show-drag",
   "description": "Webcomponent built with Atomico JS, Simple to use and customize show-drag. Includes additional support for React and Preact.",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "type": "module",
   "publishConfig": {
     "access": "public"

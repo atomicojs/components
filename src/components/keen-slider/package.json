@@ -1,7 +1,7 @@
 {
   "name": "@atomico/keen-slider",
   "description": "Webcomponent built with Atomico JS to use keen-slider as webcomponent. Includes additional support for React and Preact.",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -10,10 +10,14 @@
     "atomico": "^1.66.0",
     "@atomico/hooks": "*",
     "@atomico/react": "*",
-    "keen-slider": "latest"
+    "keen-slider": "latest",
+    "@atomico/vue": "*"
   },
   "peerDependenciesMeta": {
     "@atomico/react": {
+      "optional": true
+    },
+    "@atomico/vue": {
       "optional": true
     }
   },
@@ -26,5 +30,39 @@
   "bugs": {
     "url": "https://github.com/atomicojs/components/issues"
   },
-  "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components/keen-slider"
+  "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components/keen-slider",
+  "main": "lib/define.js",
+  "module": "lib/define.js",
+  "exports": {
+    "./define": "./lib/define.js",
+    "./elements": "./lib/elements.js",
+    "./keen-slider.css": "./lib/keen-slider.css.js",
+    "./react": "./wrappers/react.js",
+    "./preact": "./wrappers/preact.js",
+    "./vue": "./wrappers/vue.js",
+    ".": "./lib/define.js"
+  },
+  "typesVersions": {
+    "*": {
+      "react": [
+        "wrappers/react.d.ts"
+      ],
+      "preact": [
+        "wrappers/preact.d.ts"
+      ],
+      "vue": [
+        "wrappers/vue.d.ts"
+      ],
+      "define": [
+        "types/define.d.ts"
+      ],
+      "elements": [
+        "types/elements.d.ts"
+      ],
+      "keen-slider.css": [
+        "types/keen-slider.css.d.ts"
+      ]
+    }
+  },
+  "types": "types/define.d.ts"
 }
