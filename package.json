@@ -26,8 +26,6 @@
     "start": "vite --force",
     "build": "vite build",
     "test": "vitest ",
-    "exports": "exports src/components/**/*.tsx !src/components/**/preview.tsx --types --exports --analyzer",
-    "prepublishOnly": "npm run exports",
     "components:publish": "npm run component:publish -w=src/components",
     "components:create": "scaff templates/component src/components"
   },

@@ -1,4 +1,4 @@
 {
   "extends": "@atomico/tsconfig/base.json",
-  "include": ["src/**/*", "vite.config.js","types.d.ts"],
+  "include": ["src/**/*", "vite.config.js","types.d.ts"]
 }

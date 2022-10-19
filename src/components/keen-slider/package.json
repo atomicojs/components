@@ -21,7 +21,7 @@
     "step:types": "tsc",
     "step:build": "library src/**/*",
     "step:exports": "exports lib/**/* types/**/* --wrappers --main define --publish",
-    "prepublishOnly": "npm run step:types && npm run step:build && npm run step:exports"
+    "component:publish": "npm run step:types && npm run step:build && npm run step:exports"
   },
   "bugs": {
     "url": "https://github.com/atomicojs/components/issues"
