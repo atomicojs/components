@@ -1,7 +1,7 @@
 {
   "name": "@atomico/table",
   "description": "Webcomponent built with Atomico JS, Simple to use and customize table. Includes additional support for React and Preact.",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -18,8 +18,8 @@
   },
   "scripts": {
     "step:types": "tsc",
-    "step:build": "library src/**/*",
-    "step:exports": "exports lib/**/* types/**/* --wrappers --main define --publish",
+    "step:build": "library \"src/**/*\"",
+    "step:exports": "exports \"lib/**/*\" \"types/**/*\" --wrappers --main define --publish",
     "component:publish": "npm run step:types && npm run step:build && npm run step:exports"
   },
   "bugs": {
