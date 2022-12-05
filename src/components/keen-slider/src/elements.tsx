@@ -38,7 +38,12 @@ function component(props: Props<typeof component>): Host<{
 
     const [currentSlide, setCurrentSlide] = useProp("currentSlide");
 
-    const next = () => slider && slider.next();
+    const isEnableNext = () =>
+        slider?.track?.details?.rel !== slotSlides.length - 1;
+
+    const isEnablePrev = () => slider?.track?.details?.rel !== 0;
+
+    const next = () => slider && (isEnableNext() ? slider.next() : to(0));
 
     const prev = () => slider && slider.prev();
 
@@ -136,6 +141,8 @@ function component(props: Props<typeof component>): Host<{
             prev={prev}
             to={to}
             onclick={() => setLastInteraction(true)}
+            disableLeft={props.loop ? null : !isEnablePrev()}
+            disableRight={props.loop ? null : !isEnableNext()}
         >
             <slot ref={refSlides} name="slide"></slot>
             <slot onclick={prev} name="to-left"></slot>
@@ -196,6 +203,8 @@ component.props = {
             type: "Created",
         },
     },
+    disableLeft: { type: Boolean, reflect: true },
+    disableRight: { type: Boolean, reflect: true },
 };
 
 component.styles = style;
