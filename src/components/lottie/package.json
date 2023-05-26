@@ -7,7 +7,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "atomico": "^1.66.0",
+    "atomico": "^1.70.0",
     "@atomico/hooks": "*",
     "@atomico/react": "*",
     "lottie-web": "latest"
