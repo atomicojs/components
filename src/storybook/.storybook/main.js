@@ -1,5 +1,5 @@
 import { mergeConfig } from "vite";
-import { atomico } from "@atomico/vite";
+import atomico from "@atomico/vite";
 
 /** @type { import('@storybook/web-components-vite').StorybookConfig } */
 const config = {
@@ -14,17 +14,15 @@ const config = {
         options: {},
     },
     docs: {
-        autodocs: "tag",
+        autodocs: true,
     },
     async viteFinal(config) {
         return mergeConfig(config, {
-            plugins: [
-                // atomico({
-                //     cssLiterals: {
-                //         postcss: true,
-                //     },
-                // }),
-            ],
+            plugins: atomico({
+                cssLiterals: {
+                    postcss: true,
+                },
+            }),
         });
     },
 };

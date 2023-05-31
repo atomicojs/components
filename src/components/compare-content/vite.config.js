@@ -1,5 +1,9 @@
 import atomico from "@atomico/vite";
 
 export default {
-    plugins: atomico(),
+    plugins: atomico({
+        cssLiterals: {
+            postcss: true,
+        },
+    }),
 };

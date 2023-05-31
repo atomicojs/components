@@ -20,7 +20,22 @@
     "build:compile": "library \"src/**/*\"",
     "build:exports": "exports \"lib/**/*\" \"types/**/*\" --wrappers --main define --publish",
     "dev:types": "tsc --watch",
-    "dev:exports": "exports \"src/**/*\" \"types/**/*\"",
-    "component:publish": "npm run build:types && npm run build:compile && npm run build:exports"
-  }
+    "dev:exports": "exports \"src/**/*\" \"types/**/*\""
+  },
+  "exports": {
+    "./elements": "./src/elements.tsx",
+    ".": "./src/index.tsx",
+    "./stories/index.stories": "./src/stories/index.stories.tsx"
+  },
+  "typesVersions": {
+    "*": {
+      "elements": [
+        "types/elements.d.ts"
+      ],
+      "stories/index.stories": [
+        "types/stories/index.stories.d.ts"
+      ]
+    }
+  },
+  "types": "types/index.d.ts"
 }
