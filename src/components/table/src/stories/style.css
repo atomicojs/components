@@ -1,0 +1,69 @@
+section {
+    padding: 50px 10%;
+    box-sizing: border-box;
+}
+.button {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 100px;
+    font-size: 12px;
+    padding: 2.5px 10px;
+    display: inline-flex;
+    color: unset;
+    text-decoration: none;
+}
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+#table-1 {
+    font-size: 14px;
+    --table--row-gap: 10px;
+    --table--row-radius: 5px;
+    --table--row-background: white;
+    --table--row-header-background: transparent;
+    --table--cell-header-padding: 0px 10px;
+}
+#table-1 [slot="header"] {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#table-2 {
+    font-size: 14px;
+    --table--radius: 5px;
+    --table--border: 1px solid black;
+    --table--row-header-background: #fff;
+    --table--row-header-radius: 5px 5px 0px 0px;
+}
+#table-2 [slot="header"] {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#table-3 {
+    font-size: 14px;
+    --my-radius: 5px;
+    --table--row-background: white;
+    --table--row-header-radius: var(--my-radius) var(--my-radius) 0px 0px;
+    --table--row-last-radius: 0px 0px var(--my-radius) var(--my-radius);
+    --table--cell-padding: 10px 20px;
+}
+#table-3 [slot="header"] {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+#table-3[collapse] {
+    --table--row-header-radius: var(--my-radius);
+    --table--row-last-radius: var(--my-radius);
+    --table--row-radius: var(--my-radius);
+    --table--row-gap: 10px;
+}

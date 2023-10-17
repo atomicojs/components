@@ -17,13 +17,42 @@
     }
   },
   "scripts": {
-    "step:types": "tsc",
-    "step:build": "library \"src/**/*\"",
-    "step:exports": "exports \"lib/**/*\" \"types/**/*\" --wrappers --main define --publish",
-    "component:publish": "npm run step:types && npm run step:build && npm run step:exports"
+    "build:types": "tsc",
+    "build:compile": "library \"src/**/*\"",
+    "build:exports": "exports \"lib/**/*\" \"types/**/*\" --wrappers --main define --publish",
+    "dev:types": "tsc --watch",
+    "dev:exports": "exports \"src/**/*\" \"types/**/*\""
   },
   "bugs": {
     "url": "https://github.com/atomicojs/components/issues"
   },
-  "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components/table"
+  "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components/table",
+  "exports": {
+    "./elements": "./src/elements.tsx",
+    ".": "./src/index.ts",
+    "./tokens": "./src/tokens.ts",
+    "./slots/td": "./src/slots/td.tsx",
+    "./slots/tr": "./src/slots/tr.tsx",
+    "./stories/index.stories": "./src/stories/index.stories.tsx"
+  },
+  "typesVersions": {
+    "*": {
+      "define": [
+        "types/define.d.ts"
+      ],
+      "elements": [
+        "types/elements.d.ts"
+      ],
+      "tokens": [
+        "types/tokens.d.ts"
+      ],
+      "slots/td": [
+        "types/slots/td.d.ts"
+      ],
+      "slots/tr": [
+        "types/slots/tr.d.ts"
+      ]
+    }
+  },
+  "types": "types/index.d.ts"
 }

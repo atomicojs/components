@@ -2,7 +2,7 @@ import { CompareContent } from "@atomico/compare-content";
 import { define } from "@atomico/storybook";
 
 export default {
-    title: "components/iu-button",
+    title: "@atomico/compare-content",
     ...define(CompareContent),
 };
 

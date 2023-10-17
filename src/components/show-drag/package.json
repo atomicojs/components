@@ -17,13 +17,31 @@
     }
   },
   "scripts": {
-    "step:types": "tsc",
-    "step:build": "library \"src/**/*\"",
-    "step:exports": "exports \"lib/**/*\" \"types/**/*\" --wrappers --main define --publish",
-    "component:publish": "npm run step:types && npm run step:build && npm run step:exports"
+    "build:types": "tsc",
+    "build:compile": "library \"src/**/*\"",
+    "build:exports": "exports \"lib/**/*\" \"types/**/*\" --wrappers --main define --publish",
+    "dev:types": "tsc --watch",
+    "dev:exports": "exports \"src/**/*\" \"types/**/*\""
   },
   "bugs": {
     "url": "https://github.com/atomicojs/components/issues"
   },
-  "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components/show-drag"
+  "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components/show-drag",
+  "exports": {
+    "./elements": "./src/elements.tsx",
+    "./hooks": "./src/hooks.ts",
+    ".": "./src/index.ts",
+    "./stories/index.stories": "./src/stories/index.stories.tsx"
+  },
+  "typesVersions": {
+    "*": {
+      "elements": [
+        "types/elements.d.ts"
+      ],
+      "hooks": [
+        "types/hooks.d.ts"
+      ]
+    }
+  },
+  "types": "types/index.d.ts"
 }

@@ -9,4 +9,4 @@ export const parameters = {
     },
 };
 
-export const decorators = [decorator];
+export const decorators = [decorator()];

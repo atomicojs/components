@@ -1,0 +1,17 @@
+.modal-content {
+    position: relative;
+}
+.modal-button {
+    color: white;
+    border: 1px solid currentColor;
+    border-radius: 100px;
+    background: transparent;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+    cursor: pointer;
+}
+.modal-image {
+    border-radius: 1rem;
+}

@@ -3,7 +3,7 @@ import { define } from "@atomico/storybook";
 import "./style.css";
 
 export default {
-    title: "components/keen-slider",
+    title: "@atomico/keen-slider",
     ...define(KeenSlider, {
         args: {
             autoplay: true,

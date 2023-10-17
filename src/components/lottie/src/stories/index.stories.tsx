@@ -2,7 +2,7 @@ import { Lottie } from "@atomico/lottie";
 import { define } from "@atomico/storybook";
 
 export default {
-    title: "components/lottie",
+    title: "@atomico/lottie",
     ...define(Lottie, {
         args: {
             cdn: true,
