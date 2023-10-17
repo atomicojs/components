@@ -28,9 +28,18 @@
   },
   "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components/show-drag",
   "exports": {
-    "./elements": "./src/elements.tsx",
-    "./hooks": "./src/hooks.ts",
-    ".": "./src/index.ts",
+    "./elements": {
+      "default": "./src/elements.tsx",
+      "types": "./types/elements.d.ts"
+    },
+    "./hooks": {
+      "default": "./src/hooks.ts",
+      "types": "./types/hooks.d.ts"
+    },
+    ".": {
+      "default": "./src/index.ts",
+      "types": "./types/index.d.ts"
+    },
     "./stories/index.stories": "./src/stories/index.stories.tsx"
   },
   "typesVersions": {

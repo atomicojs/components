@@ -1,27 +1,28 @@
 import { KeenSliderInstance } from "keen-slider";
 export declare const KeenSlider: import("atomico/types/dom").Atomico<{
+    next: () => void;
+    mode: "snap" | "free" | "free-snap";
+    to: (slide: number) => void;
+    autoplayLoop: number;
+    onCreated: (event: Event) => any;
+    onSlideChanged: (event: Event) => any;
+    prev: () => void;
+} & {
+    initial?: number;
+    disabled?: boolean;
+    autoplay?: boolean;
     loop?: boolean;
     drag?: boolean;
-    disabled?: boolean;
-    vertical?: boolean;
     rtl?: boolean;
+    vertical?: boolean;
     rubberband?: boolean;
-    autoplay?: boolean;
-    autoplayLoop?: number;
-    initial?: number;
     currentSlide?: number;
-    mode?: "snap" | "free" | "free-snap";
     slidesPerView?: string;
     slidesSpacing?: string;
     slidesOrigin?: string;
     slider?: KeenSliderInstance;
     disableLeft?: boolean;
     disableRight?: boolean;
-    onCreated?: (event: Event) => any;
-    onSlideChanged?: (event: Event) => any;
-    next?: () => void;
-    prev?: () => void;
-    to?: (slide: number) => void;
 }, {
     new (): HTMLElement;
     prototype: HTMLElement;

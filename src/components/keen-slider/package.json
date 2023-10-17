@@ -33,9 +33,18 @@
   },
   "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components/keen-slider",
   "exports": {
-    "./elements": "./src/elements.tsx",
-    ".": "./src/index.ts",
-    "./keen-slider.css": "./src/keen-slider.css.ts",
+    "./elements": {
+      "default": "./src/elements.tsx",
+      "types": "./types/elements.d.ts"
+    },
+    ".": {
+      "default": "./src/index.ts",
+      "types": "./types/index.d.ts"
+    },
+    "./keen-slider.css": {
+      "default": "./src/keen-slider.css.ts",
+      "types": "./types/keen-slider.css.d.ts"
+    },
     "./stories/index.stories": "./src/stories/index.stories.tsx"
   },
   "typesVersions": {

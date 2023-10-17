@@ -1,5 +1,6 @@
 export declare const Td: import("atomico/types/dom").Atomico<{
-    slot?: string;
+    slot: string;
+} & {
     width?: string;
     label?: string;
     column?: string;

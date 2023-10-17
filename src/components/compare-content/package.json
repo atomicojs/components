@@ -23,8 +23,14 @@
     "dev:exports": "exports \"src/**/*\" \"types/**/*\""
   },
   "exports": {
-    "./elements": "./src/elements.tsx",
-    ".": "./src/index.tsx",
+    "./elements": {
+      "default": "./src/elements.tsx",
+      "types": "./types/elements.d.ts"
+    },
+    ".": {
+      "default": "./src/index.tsx",
+      "types": "./types/index.d.ts"
+    },
     "./stories/index.stories": "./src/stories/index.stories.tsx"
   },
   "typesVersions": {

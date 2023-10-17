@@ -1,6 +1,10 @@
 export declare const Tr: import("atomico/types/dom").Atomico<{
+    slot: string;
+} & {
+    last?: boolean;
     td?: import("atomico/types/dom").AtomicoThis<{
-        slot?: string;
+        slot: string;
+    } & {
         width?: string;
         label?: string;
         column?: string;
@@ -8,10 +12,8 @@ export declare const Tr: import("atomico/types/dom").Atomico<{
         new (): HTMLElement;
         prototype: HTMLElement;
     }>[];
-    collapse?: boolean;
     sticky?: boolean;
-    slot?: string;
-    last?: boolean;
+    collapse?: boolean;
 }, {
     new (): HTMLElement;
     prototype: HTMLElement;

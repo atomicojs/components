@@ -1,5 +1,6 @@
 export declare const CompareContent: import("atomico/types/dom").Atomico<{
-    value?: number;
+    value: number;
+} & {
     vertical?: boolean;
 }, {
     new (): HTMLElement;

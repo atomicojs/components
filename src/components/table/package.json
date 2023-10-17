@@ -28,11 +28,26 @@
   },
   "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components/table",
   "exports": {
-    "./elements": "./src/elements.tsx",
-    ".": "./src/index.ts",
-    "./tokens": "./src/tokens.ts",
-    "./slots/td": "./src/slots/td.tsx",
-    "./slots/tr": "./src/slots/tr.tsx",
+    "./elements": {
+      "default": "./src/elements.tsx",
+      "types": "./types/elements.d.ts"
+    },
+    ".": {
+      "default": "./src/index.ts",
+      "types": "./types/index.d.ts"
+    },
+    "./tokens": {
+      "default": "./src/tokens.ts",
+      "types": "./types/tokens.d.ts"
+    },
+    "./slots/td": {
+      "default": "./src/slots/td.tsx",
+      "types": "./types/slots/td.d.ts"
+    },
+    "./slots/tr": {
+      "default": "./src/slots/tr.tsx",
+      "types": "./types/slots/tr.d.ts"
+    },
     "./stories/index.stories": "./src/stories/index.stories.tsx"
   },
   "typesVersions": {

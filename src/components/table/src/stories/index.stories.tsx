@@ -15,7 +15,7 @@ const data = fetch("https://example-data.draftbit.com/authors?_limit=10").then(
 const useData = () => useAsync(() => data, []);
 
 const Template = ({ data, ...props }: any) => (
-    <Table breakpoint="(max-width: 520px)" {...props}>
+    <Table class="table" breakpoint="(max-width: 520px)" {...props}>
         <Tr slot="header">
             <Td>Author</Td>
             <Td>Avatar</Td>

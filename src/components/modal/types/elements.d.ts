@@ -1,16 +1,17 @@
 export declare const Modal: import("atomico/types/dom").Atomico<{
-    showAfterMs?: number;
+    closed: () => void;
+    open: () => void;
+    toggle: () => void;
+    padding: string;
+    position: string;
+    onChangeShow: (event: Event) => any;
+} & {
     show?: boolean;
-    padding?: string;
-    position?: string;
+    showAfterMs?: number;
     fullSize?: boolean;
     lazyload?: boolean;
     fullSizeClosed?: boolean;
     inTransition?: boolean;
-    onChangeShow?: (event: Event) => any;
-    open?: () => void;
-    closed?: () => void;
-    toggle?: () => void;
 }, {
     new (): HTMLElement;
     prototype: HTMLElement;
