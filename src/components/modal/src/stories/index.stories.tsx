@@ -21,7 +21,7 @@ export const Story = (props) => (
                 alt=""
             />
             <button class="modal-button" data-modal="toggle">
-                closed
+                X
             </button>
         </section>
     </Modal>
