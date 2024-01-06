@@ -42,6 +42,6 @@
     "@atomico/tsconfig": "^1.1.2",
     "@atomico/vite": "^2.17.8",
     "typescript": "latest",
-    "vite": "latest"
+    "vite": "^5.0.11"
   }
 }
