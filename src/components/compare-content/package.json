@@ -46,5 +46,12 @@
       ]
     }
   },
-  "types": "types/index.d.ts"
+  "types": "types/index.d.ts",
+  "postcss": {
+    "plugins": {
+      "@atomico/postcss-tokens": {
+        "defaultValues": "true"
+      }
+    }
+  }
 }
