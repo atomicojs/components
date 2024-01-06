@@ -8,10 +8,14 @@
   "peerDependencies": {
     "atomico": "^1.70.0",
     "@atomico/hooks": "*",
-    "@atomico/react": "*"
+    "@atomico/react": "*",
+    "@atomico/vue": "*"
   },
   "peerDependenciesMeta": {
     "@atomico/react": {
+      "optional": true
+    },
+    "@atomico/vue": {
       "optional": true
     }
   },
@@ -24,16 +28,28 @@
   },
   "exports": {
     "./elements": {
-      "default": "./src/elements.tsx",
+      "default": "./lib/elements.js",
       "types": "./types/elements.d.ts"
     },
     ".": {
-      "default": "./src/index.tsx",
+      "default": "./lib/index.js",
       "types": "./types/index.d.ts"
     },
     "./stories/index.stories": "./src/stories/index.stories.tsx",
     "./tsconfig.json": {
       "default": "./src/stories/tsconfig.json"
+    },
+    "./react": {
+      "default": "./wrapper/react.js",
+      "types": "./wrapper/react.d.ts"
+    },
+    "./preact": {
+      "default": "./wrapper/preact.js",
+      "types": "./wrapper/preact.d.ts"
+    },
+    "./vue": {
+      "default": "./wrapper/vue.js",
+      "types": "./wrapper/vue.d.ts"
     }
   },
   "typesVersions": {
@@ -43,6 +59,15 @@
       ],
       "stories/index.stories": [
         "types/stories/index.stories.d.ts"
+      ],
+      "react": [
+        "wrapper/react.d.ts"
+      ],
+      "preact": [
+        "wrapper/preact.d.ts"
+      ],
+      "vue": [
+        "wrapper/vue.d.ts"
       ]
     }
   },
@@ -50,6 +75,7 @@
   "postcss": {
     "plugins": {
       "@atomico/postcss-tokens": {
+        "prefix": "compare-content",
         "defaultValues": "true"
       }
     }
