@@ -23,24 +23,24 @@
   },
   "homepage": "https://atomico.gitbook.io/doc/atomico/atomico-components",
   "scripts": {
-    "start": "vite --force",
-    "build": "vite build",
+    "dev": "run dev:*",
+    "dev:storybook": "run dev -w=storybook",
     "test": "vitest ",
     "components:publish": "npm run component:publish -w=src/components",
     "components:create": "scaff component-monorepo src/components"
   },
   "dependencies": {
-    "@atomico/hooks": "^3.45.0",
+    "@atomico/hooks": "^4.0.0-beta.5",
     "@atomico/router": "^1.2.0",
     "atomico": "^1.70.0"
   },
   "devDependencies": {
     "@atomico/exports": "^1.6.0",
     "@atomico/postcss-tokens": "^2.1.0",
-    "@atomico/run": "^0.13.0",
+    "@atomico/run": "^0.14.2",
     "@atomico/scaffold": "^2.9.5",
     "@atomico/tsconfig": "^1.1.2",
-    "@atomico/vite": "^2.9.0",
+    "@atomico/vite": "^2.17.8",
     "typescript": "latest",
     "vite": "latest"
   }

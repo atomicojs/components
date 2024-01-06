@@ -8,10 +8,10 @@
     justify-content: center;
     background: linear-gradient(45deg, black, #404040);
 }
-h1 {
+.slider h1 {
     font-size: 16vh;
 }
-.button {
+.slider .button {
     display: flex;
     width: 40px;
     height: 40px;
@@ -26,31 +26,31 @@ h1 {
     top: 50%;
     z-index: 10;
 }
-.button[slot="to-left"] {
+.slider .button[slot="to-left"] {
     left: 1rem;
 }
-.button[slot="to-right"] {
+.slider .button[slot="to-right"] {
     right: 1rem;
 }
 
-[slot="pagination-items"] {
+.slider [slot="pagination-items"] {
     position: absolute;
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
 }
-.dot {
+.slider .dot {
     all: unset;
     color: white;
     padding: 1rem;
     cursor: pointer;
     transition: 0.3s ease all;
 }
-.dot[active="false"] {
+.slider .dot[active="false"] {
     opacity: 0.5;
 }
-.dot[active="true"] {
+.slider .dot[active="true"] {
     opacity: 1;
     scale: 1.5;
 }

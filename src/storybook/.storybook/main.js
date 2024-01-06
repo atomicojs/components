@@ -14,7 +14,7 @@ const config = {
         options: {},
     },
     docs: {
-        autodocs: true,
+        autodocs: false,
     },
     async viteFinal(config) {
         return mergeConfig(config, {

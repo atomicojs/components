@@ -37,7 +37,10 @@
       "default": "./src/index.ts",
       "types": "./types/index.d.ts"
     },
-    "./stories/index.stories": "./src/stories/index.stories.tsx"
+    "./stories/index.stories": "./src/stories/index.stories.tsx",
+    "./tsconfig.json": {
+      "default": "./src/stories/tsconfig.json"
+    }
   },
   "typesVersions": {
     "*": {

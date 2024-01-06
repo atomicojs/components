@@ -45,7 +45,13 @@
       "default": "./src/keen-slider.css.ts",
       "types": "./types/keen-slider.css.d.ts"
     },
-    "./stories/index.stories": "./src/stories/index.stories.tsx"
+    "./stories/index.stories": "./src/stories/index.stories.tsx",
+    "./style.css": {
+      "default": "./src/stories/style.css"
+    },
+    "./tsconfig.json": {
+      "default": "./src/stories/tsconfig.json"
+    }
   },
   "typesVersions": {
     "*": {

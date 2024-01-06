@@ -1,42 +1,90 @@
-import { Props, c, css, useRef } from "atomico";
+import { useDebounceState } from "@atomico/hooks/use-debounce-state";
+import { useListener } from "@atomico/hooks/use-listener";
 import { useProxySlot } from "@atomico/hooks/use-slot";
-import { useDragResize } from "@atomico/hooks/use-drag-resize";
 
-function compareContent({ value, vertical }: Props<typeof compareContent>) {
-    const ref = useRef();
-    const refDrag = useRef();
-    const slots = useProxySlot<HTMLElement>(ref);
-    const [, x, y] = useDragResize(refDrag, [value, value]);
-    let v = vertical ? y : x;
-    v = v > 1 ? 1 : v < 0 ? 0 : v;
+import { Props, c, css, useEffect, useHost, useRef, useState } from "atomico";
+
+function compareContent({ value }: Props<typeof compareContent>) {
+    const refContainer = useRef(window);
+    const refTrigger = useRef();
+    const refHost = useHost();
+    const refSlots = useRef();
+    const [active, setActive] = useState(false);
+    const [position, setPosition] = useDebounceState(
+        1,
+        { x: value, y: value },
+        "fps"
+    );
+
+    const slotItems = useProxySlot<HTMLElement>(refSlots);
+
+    const start = () => setActive(true);
+    const end = () => setActive(false);
+
+    useEffect(() => {
+        if (position.x != value)
+            setPosition({
+                x: value,
+                y: value,
+            });
+    }, [value]);
+
+    useListener(refTrigger, "mousedown", start);
+    useListener(refContainer, "mouseup", end);
+    useListener(refContainer, "mouseleave", end);
+    useListener(refTrigger, "touchstart", start);
+    useListener(refContainer, "touchend", end);
+
+    const onMove = (event: MouseEvent | TouchEvent) => {
+        const { current } = refHost;
+        if (active && event.composedPath().includes(current)) {
+            const rect = current.getBoundingClientRect();
+            const offset =
+                event instanceof TouchEvent ? event.targetTouches[0] : event;
+            const offsetX = offset.pageX - rect.x;
+            const offsetY = offset.pageY - rect.y;
+            setPosition({
+                x: offsetX / current.clientWidth,
+                y: offsetY / current.clientHeight,
+            });
+        }
+    };
+
+    useListener(refContainer, "touchmove", onMove, { passive: true });
+    useListener(refContainer, "mousemove", onMove, { passive: true });
+
     return (
         <host shadowDom>
-            <slot name="content" ref={ref}></slot>
-            <div class="mask">
-                {slots.map((child, i) => (
-                    <div class={i ? "last" : "first"} staticNode>
-                        <slot name={(child.slot = `content-${i}`)} />
-                    </div>
+            <slot name="content" ref={refSlots} />
+            <style>{`
+                :host{--x:${position.x};--y:${position.y}}
+            `}</style>
+            <div class="split-content">
+                {slotItems.map((item, i) => (
+                    <slot name={(item.slot = `item-${i + 1}`)} />
                 ))}
             </div>
-            <button class="drag" ref={refDrag} staticNode>
-                <div class="drag-icon" part="icon">
-                    <slot name="icon">
-                        <svg
-                            width="12.001"
-                            height="7.999"
-                            viewBox="0 0 12.001 7.999"
-                        >
-                            <path
-                                d="M-6775-1004l4,4-4,4Zm-8,4,4-4v8Z"
-                                transform="translate(6783.001 1004)"
-                                fill="var(--icon-fill)"
-                            />
-                        </svg>
-                    </slot>
+            <div class="split-mask">
+                <div class="split">
+                    <div class="split-center" ref={refTrigger}>
+                        <slot name="trigger">
+                            <button class="split-trigger">
+                                <svg
+                                    width="12.001"
+                                    height="7.999"
+                                    viewBox="0 0 12.001 7.999"
+                                >
+                                    <path
+                                        d="M-6775-1004l4,4-4,4Zm-8,4,4-4v8Z"
+                                        transform="translate(6783.001 1004)"
+                                        fill="var(--icon-fill)"
+                                    />
+                                </svg>
+                            </button>
+                        </slot>
+                    </div>
                 </div>
-            </button>
-            <style>{`:host{--v:${v} !important;}`}</style>
+            </div>
         </host>
     );
 }
@@ -50,99 +98,84 @@ compareContent.styles = css`
     @tokens "../tokens.yaml" (prefix: compare-content);
 
     :host {
-        display: inline-block;
+        display: block;
         position: relative;
-        --v: 0.5;
-        --cursor: col-resize;
-        --icon-rotate: 0deg;
-        --percent: calc(100% * var(--v));
-    }
-    .mask {
-        position: relative;
-        overflow: hidden;
-    }
-    .first {
-        position: relative;
-        clip-path: polygon(
-            0% 0%,
-            var(--percent) 0%,
-            var(--percent) 100%,
-            0% 100%
-        );
-    }
-    .last {
-        width: 100%;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        clip-path: polygon(
-            var(--percent) 0%,
+        width: auto;
+        height: auto;
+        --mask: polygon(
+            calc(100% * var(--x)) 0%,
             100% 0%,
             100% 100%,
-            var(--percent) 100%
+            calc(100% * var(--x)) 100%
         );
+        overflow: hidden;
+        --cursor: col-resize;
     }
 
-    .drag {
-        all: unset;
-        position: absolute;
-        top: 0;
-        left: var(--percent);
-        transform: translate(-50%);
-        width: var(--line-width);
-        height: 100%;
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: var(--cursor);
-    }
-    .drag-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: var(--icon-box-size);
-        height: var(--icon-box-size);
-        min-width: var(--icon-box-size);
-        min-height: var(--icon-box-size);
-        background: var(--icon-box-fill);
+    .split-content {
         position: relative;
-        border-radius: var(--icon-box-radius);
-        transform: rotate(var(--icon-rotate));
+        z-index: 0;
     }
-    :host([vertical]) {
-        --cursor: row-resize;
-        --icon-rotate: 90deg;
-    }
-    :host([vertical]) .drag {
+
+    .split-mask {
+        position: absolute;
         width: 100%;
-        height: var(--line-width);
+        height: 100%;
+        top: 0;
         left: 0;
-        top: var(--percent);
-        transform: translateY(-50%);
+        z-index: 2;
     }
-    :host([vertical]) .last {
-        clip-path: polygon(
-            0% var(--percent),
-            100% var(--percent),
+
+    :host([vertical]) {
+        --mask: polygon(
+            0% calc(100% * var(--y)),
+            100% calc(100% * var(--y)),
             100% 100%,
             0% 100%
         );
-    }
-    :host([vertical]) .first {
-        clip-path: polygon(
-            0% 0%,
-            100% 0%,
-            100% var(--percent),
-            0% var(--percent)
-        );
-    }
-    ::slotted(img) {
-        pointer-events: none;
-        display: block;
+        --cursor: row-resize;
     }
     ::slotted(*) {
         max-width: 100%;
+        width: 100%;
+        display: block;
+    }
+    ::slotted([slot="item-2"]) {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        clip-path: var(--mask);
+    }
+    .split {
+        width: var(--line-width);
+        height: 100%;
+        background: var(--line-fill);
+        position: absolute;
+        left: calc(100% * var(--x));
+        transform: translateX(-50%);
+        top: 0;
+    }
+    :host([vertical]) .split {
+        width: 100%;
+        height: var(--line-width);
+        left: 0;
+        top: calc(100% * var(--y));
+        transform: translateY(-50%);
+    }
+    .split-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .split-trigger {
+        width: var(--icon-box-size);
+        height: var(--icon-box-size);
+        border-radius: var(--icon-box-radius);
+        background: var(--icon-box-fill);
+        border: var(--line-width) solid var(--line-fill);
+        padding: none;
+        cursor: var(--cursor);
     }
 `;
 

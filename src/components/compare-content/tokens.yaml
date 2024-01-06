@@ -1,5 +1,6 @@
 line:
   width: 1px
+  fill: white
 icon:
   box:
     size: 2rem
