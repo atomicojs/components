@@ -5,7 +5,7 @@ import { useProxySlot } from "@atomico/hooks/use-slot";
 import { Props, c, css, useEffect, useHost, useRef, useState } from "atomico";
 
 function compareContent({ value }: Props<typeof compareContent>) {
-    const refContainer = useRef(window);
+    const refContainer = useRef(globalThis);
     const refTrigger = useRef();
     const refHost = useHost();
     const refSlots = useRef();
@@ -37,20 +37,33 @@ function compareContent({ value }: Props<typeof compareContent>) {
 
     const onMove = (event: MouseEvent | TouchEvent) => {
         const { current } = refHost;
-        if (active && event.composedPath().includes(current)) {
+        if (active) {
             const rect = current.getBoundingClientRect();
-            const offset =
-                event instanceof TouchEvent ? event.targetTouches[0] : event;
-            const offsetX = offset.pageX - rect.x;
-            const offsetY = offset.pageY - rect.y;
+            const isTouch = event instanceof TouchEvent;
+            const offset = isTouch ? event.targetTouches[0] : event;
+            const offsetX = offset.clientX - rect.x;
+            const offsetY = offset.clientY - rect.y;
+
+            if (isTouch) event.preventDefault();
+
             setPosition({
-                x: offsetX / current.clientWidth,
-                y: offsetY / current.clientHeight,
+                x:
+                    offsetX < 0
+                        ? 0
+                        : offsetX > rect.width
+                        ? 1
+                        : offsetX / rect.width,
+                y:
+                    offsetY < 0
+                        ? 0
+                        : offsetY > rect.height
+                        ? 1
+                        : offsetY / rect.height,
             });
         }
     };
 
-    useListener(refContainer, "touchmove", onMove, { passive: true });
+    useListener(refContainer, "touchmove", onMove, { passive: false });
     useListener(refContainer, "mousemove", onMove, { passive: true });
 
     return (
@@ -59,13 +72,16 @@ function compareContent({ value }: Props<typeof compareContent>) {
             <style>{`
                 :host{--x:${position.x};--y:${position.y}}
             `}</style>
-            <div class="split-content">
+            <div class="split-mask split-content">
                 {slotItems.map((item, i) => (
                     <slot name={(item.slot = `item-${i + 1}`)} />
                 ))}
             </div>
-            <div class="split-mask">
-                <div class="split">
+            <div class="split-mask split-layer">
+                <div class="split"></div>
+            </div>
+            <div class="split-mask split-layer">
+                <div class="split split-trasparent">
                     <div class="split-center" ref={refTrigger}>
                         <slot name="trigger">
                             <button class="split-trigger">
@@ -92,6 +108,7 @@ function compareContent({ value }: Props<typeof compareContent>) {
 compareContent.props = {
     value: { type: Number, value: 0.5 },
     vertical: { type: Boolean, reflect: true },
+    overflow: { type: Boolean, reflect: true },
 };
 
 compareContent.styles = css`
@@ -108,25 +125,12 @@ compareContent.styles = css`
             100% 100%,
             calc(100% * var(--x)) 100%
         );
-        overflow: hidden;
         --cursor: col-resize;
+        --overflow: none;
+        --icon-rotate: 0deg;
     }
-
-    .split-content {
-        position: relative;
-        z-index: 0;
-    }
-
-    .split-mask {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 2;
-    }
-
     :host([vertical]) {
+        --icon-rotate: 90deg;
         --mask: polygon(
             0% calc(100% * var(--y)),
             100% calc(100% * var(--y)),
@@ -134,6 +138,23 @@ compareContent.styles = css`
             0% 100%
         );
         --cursor: row-resize;
+    }
+    .split-content {
+        position: relative;
+        z-index: 0;
+    }
+
+    .split-mask {
+        overflow: var(--overflow);
+    }
+
+    .split-layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 2;
     }
     ::slotted(*) {
         max-width: 100%;
@@ -176,6 +197,10 @@ compareContent.styles = css`
         border: var(--line-width) solid var(--line-fill);
         padding: none;
         cursor: var(--cursor);
+        rotate: var(--icon-rotate);
+    }
+    .split-trasparent {
+        background: transparent;
     }
 `;
 
